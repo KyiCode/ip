@@ -50,6 +50,11 @@ class Brain {
             return;
         }
 
+        if (splittedText[0].equals("delete")) {
+            Task.delete(Integer.parseInt(splittedText[1]));
+            return;
+        }
+
         if (splittedText[0].equals("todo")) {
             splittedText = text.split("todo ");
             Task task = new ToDo(splittedText[1]);
@@ -149,6 +154,15 @@ class Task {
         task.done = false;
         System.out.println("I've marked this task as not done yet:");
         System.out.println(task.toString());
+    }
+
+    public static void delete(int taskIndex) throws InvalidMarkingException {
+        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        Task task = list.get(taskIndex - 1);
+        list.remove(taskIndex - 1);
+        System.out.println("I've eaten this task:");
+        System.out.println(task.toString());
+        System.out.println(Task.getListSize() + " tasks in list.");
     }
 
     public static int getListSize() {
