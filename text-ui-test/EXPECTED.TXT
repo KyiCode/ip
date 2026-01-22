@@ -18,9 +18,11 @@ Tasks in List:
 1. [T][X] borrow book
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Nice! I've marked this task as not done yet:
+I've marked this task as not done yet:
 [T][ ] borrow book
 Tasks in List: 
 1. [T][ ] borrow book
 2. [D][X] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Bye. Hope to see you again soon!
+
