@@ -129,6 +129,7 @@ class Task {
 
     public static void getTaskList() {
         int count = 1;
+        System.out.println("Tasks in List: ");
         for (Task x : list) {
             System.out.println(count + ". " + x.toString());
             count++;
