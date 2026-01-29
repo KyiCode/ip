@@ -29,14 +29,68 @@ public class TaskList {
             }
             if (text.startsWith("[E]")) {
                 text = text.split("] ")[1];
+                String[] textArr = text.split(" \\(from: ");
+                String taskText = textArr[0];
+                String from = textArr[1].split(" to: ")[0];
+                String to = textArr[1].split("\\)")[0];
+                Task task = new Event(taskText, to, from, 1);
             }
-
-
         }
+        sc.close();
+    }
 
+    public static void add(Task task) {
+        list.add(task);
     }
 
 
+    public static Task markDone(int taskIndex) throws InvalidMarkingException, IOException {
+        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        Task task = list.get(taskIndex - 1);
+        task.setDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task.toString());
+        return task;
+    }
+
+    public static Task markUndone(int taskIndex) throws InvalidMarkingException, IOException {
+        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        Task task = list.get(taskIndex - 1);
+        task.setNotDone();
+        System.out.println("I've marked this task as not done yet:");
+        System.out.println(task.toString());
+        return task;
+    }
+
+    public static void delete(int taskIndex) throws InvalidMarkingException, IOException {
+        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        Task task = list.get(taskIndex - 1);
+        list.remove(taskIndex - 1);
+        System.out.println("I've eaten this task:");
+        System.out.println(task.toString());
+        System.out.println(TaskList.getListSize() + " tasks in list.");
+        FileOperator.delOperation(taskIndex);
+    }
+
+    public static int getListSize() {
+        return list.size();
+    }
+
+    public static void getTaskList() {
+        int count = 1;
+        System.out.println("Tasks in List: ");
+
+        if (list.isEmpty()) System.out.println("Nothing to see here...");
+
+        for (Task x : list) {
+            System.out.println(count + ". " + x.toString());
+            count++;
+        }
+    }
+
+    public static int getTaskIndex(Task task) {
+        return list.indexOf(task);
+    }
 
 
 

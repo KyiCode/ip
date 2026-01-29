@@ -19,25 +19,25 @@ class Brain {
         }
 
         if (text.equals("list")) {
-            Task.getTaskList();
+            TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
             return;
         }
 
         if (splittedText[0].equals("mark")) {
-            Task task = Task.markDone(Integer.parseInt(splittedText[1]));
+            Task task = TaskList.markDone(Integer.parseInt(splittedText[1]));
             FileOperator.markOperation(filePath, task);
             return;
         }
 
         if (splittedText[0].equals("unmark")) {
-            Task task = Task.markUndone(Integer.parseInt(splittedText[1]));
+            Task task = TaskList.markUndone(Integer.parseInt(splittedText[1]));
             FileOperator.markOperation(filePath, task);
             return;
         }
 
         if (splittedText[0].equals("delete")) {
-            Task.delete(Integer.parseInt(splittedText[1]));
+            TaskList.delete(Integer.parseInt(splittedText[1]));
             return;
         }
 

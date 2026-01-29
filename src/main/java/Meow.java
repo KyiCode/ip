@@ -11,6 +11,7 @@ public class Meow {
         Brain meowmeow = new Brain();
         Scanner sc = new Scanner(System.in);
 
+
         Path dataDir = Paths.get("ip/data");
         Path filePath = Paths.get("ip/data/meow.txt");
 
@@ -22,7 +23,11 @@ public class Meow {
             Files.createFile(filePath);
         }
 
-        TaskList.load(filePath, meowmeow);
+        try {
+            TaskList.load(filePath, meowmeow);
+        } catch (Exception e) {
+            return;
+        }
 
         while (sc.hasNext()) {
             String text = sc.nextLine();

@@ -6,7 +6,7 @@ class ToDo extends Task {
     public ToDo(String taskName) throws InvalidCommandException, IOException {
         super(taskName);
         System.out.println("Added: " + this.toString());
-        System.out.println(Task.getListSize() + " tasks in list.");
+        System.out.println(TaskList.getListSize() + " tasks in list.");
     }
 
     public ToDo(String taskName, int mode) throws InvalidCommandException, IOException {
@@ -21,7 +21,7 @@ class Deadline extends Task {
         this.deadline = taskName[1];
         if (this.deadline == null) throw new NullDateException();
         System.out.println("Added: " + this.toString());
-        System.out.println(Task.getListSize() + " tasks in list.");
+        System.out.println(TaskList.getListSize() + " tasks in list.");
     }
 
     public Deadline (String taskName, String deadLine, int mode) throws InvalidCommandException, IOException {
@@ -48,7 +48,7 @@ class Event extends Task {
         if (this.from == null || this.to == null) throw new NullDateException();
 
         System.out.println("Added: " + this.toString());
-        System.out.println(Task.getListSize() + " tasks in list.");
+        System.out.println(TaskList.getListSize() + " tasks in list.");
     }
 
     public Event (String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
@@ -79,61 +79,70 @@ class Task {
         TaskList.add(this);
     }
 
-    public static Task markDone(int taskIndex) throws InvalidMarkingException, IOException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
-        Task task = list.get(taskIndex - 1);
-        task.done = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        return task;
+    public void setDone() {
+        this.done = true;
     }
 
-    public static Task markUndone(int taskIndex) throws InvalidMarkingException, IOException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
-        Task task = list.get(taskIndex - 1);
-        task.done = false;
-        System.out.println("I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        return task;
+    public void setNotDone() {
+        this.done = false;
     }
 
-    public static void delete(int taskIndex) throws InvalidMarkingException, IOException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
-        Task task = list.get(taskIndex - 1);
-        list.remove(taskIndex - 1);
-        System.out.println("I've eaten this task:");
-        System.out.println(task.toString());
-        System.out.println(Task.getListSize() + " tasks in list.");
-        FileOperator.delOperation(taskIndex);
-    }
-
-    public static int getListSize() {
-        return list.size();
-    }
-
-    public static void getTaskList() {
-        int count = 1;
-        System.out.println("Tasks in List: ");
-
-        if (list.isEmpty()) System.out.println("Nothing to see here...");
-
-        for (Task x : list) {
-            System.out.println(count + ". " + x.toString());
-            count++;
-        }
-    }
-
+//
+//    public static Task markDone(int taskIndex) throws InvalidMarkingException, IOException {
+//        if (taskIndex > list.size()) throw new InvalidMarkingException();
+//        Task task = list.get(taskIndex - 1);
+//        task.done = true;
+//        System.out.println("Nice! I've marked this task as done:");
+//        System.out.println(task.toString());
+//        return task;
+//    }
+//
+//    public static Task markUndone(int taskIndex) throws InvalidMarkingException, IOException {
+//        if (taskIndex > list.size()) throw new InvalidMarkingException();
+//        Task task = list.get(taskIndex - 1);
+//        task.done = false;
+//        System.out.println("I've marked this task as not done yet:");
+//        System.out.println(task.toString());
+//        return task;
+//    }
+//
+//    public static void delete(int taskIndex) throws InvalidMarkingException, IOException {
+//        if (taskIndex > list.size()) throw new InvalidMarkingException();
+//        Task task = list.get(taskIndex - 1);
+//        list.remove(taskIndex - 1);
+//        System.out.println("I've eaten this task:");
+//        System.out.println(task.toString());
+//        System.out.println(Task.getListSize() + " tasks in list.");
+//        FileOperator.delOperation(taskIndex);
+//    }
+//
+//    public static int getListSize() {
+//        return list.size();
+//    }
+//
+//    public static void getTaskList() {
+//        int count = 1;
+//        System.out.println("Tasks in List: ");
+//
+//        if (list.isEmpty()) System.out.println("Nothing to see here...");
+//
+//        for (Task x : list) {
+//            System.out.println(count + ". " + x.toString());
+//            count++;
+//        }
+//    }
+//
     public boolean status() {
         return this.done;
     }
-
+//
     public String getTaskName() {
         return this.taskName;
     }
-
-    public int getTaskIndex() {
-        return list.indexOf(this);
-    }
+//
+//    public int getTaskIndex() {
+//        return list.indexOf(this);
+//    }
 
     @Override
     public String toString() {

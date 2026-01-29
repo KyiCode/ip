@@ -25,7 +25,7 @@ class FileOperator {
         int count = 0;
         while (sc.hasNext()) {
             String stringLine = sc.nextLine();
-            if (count == task.getTaskIndex()) {
+            if (count == TaskList.getTaskIndex(task)) {
                 stringLine = task.toString();
             }
             count+= 1;
