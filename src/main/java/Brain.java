@@ -50,7 +50,7 @@ class Brain {
 
         if (splittedText[0].equals("deadline")) {
             splittedText = text.split("deadline ");
-            Task task = new Deadline(splittedText[1].split(" /by "));
+            Task task = new DeadLineTask(splittedText[1].split(" /by "));
             FileOperator.append(filePath, task);
             return;
         }

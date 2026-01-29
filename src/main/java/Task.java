@@ -14,29 +14,6 @@ class ToDo extends Task {
     }
 }
 
-class Deadline extends Task {
-    String deadline = " ";
-    public Deadline (String[] taskName) throws InvalidCommandException, IOException {
-        super(taskName[0]);
-        this.deadline = taskName[1];
-        if (this.deadline == null) throw new NullDateException();
-        System.out.println("Added: " + this.toString());
-        System.out.println(TaskList.getListSize() + " tasks in list.");
-    }
-
-    public Deadline (String taskName, String deadLine, int mode) throws InvalidCommandException, IOException {
-        super(taskName);
-        this.deadline = deadLine;
-        if (this.deadline == null) throw new NullDateException();
-    }
-
-    @Override
-    public String toString() {
-        String doneStatus = "[D][ ] ";
-        if (this.status()) doneStatus = "[D][X] ";
-        return doneStatus + this.getTaskName() + " (by: " + deadline +")";
-    }
-}
 
 class Event extends Task {
     String from;
