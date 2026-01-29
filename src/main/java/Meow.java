@@ -7,20 +7,20 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Meow {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         Brain meowmeow = new Brain();
         Scanner sc = new Scanner(System.in);
-
 
         Path dataDir = Paths.get("ip/data");
         Path filePath = Paths.get("ip/data/meow.txt");
 
-        if (!Files.exists(dataDir)) {
+        try {
             Files.createDirectories(dataDir);
-            Files.createFile(filePath);
-        }
-        if (!Files.exists(filePath)) {
-            Files.createFile(filePath);
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+        } catch (IOException e) {
+            System.out.println("File exists, skipping...");
         }
 
         try {
@@ -36,6 +36,8 @@ public class Meow {
             } catch (InvalidCommandException | InvalidMarkingException e) {
                 System.out.println(e.getMessage());
                 continue;
+            } catch (IOException e) {
+                System.out.println("File error");
             }
         }
     }

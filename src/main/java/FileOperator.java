@@ -15,7 +15,6 @@ class FileOperator {
         fw.close();
     }
 
-
     // implement bug check
     public static void markOperation(Path filePath, Task task) throws IOException {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
