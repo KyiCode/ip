@@ -1,9 +1,12 @@
+package task;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidEventFormatException;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
 
-class Event extends Task {
+public class Event extends Task {
     LocalDate from;
     LocalDate to;
     public Event (String[] eventDetails) throws InvalidCommandException, IOException {

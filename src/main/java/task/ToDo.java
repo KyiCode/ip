@@ -1,6 +1,10 @@
+package task;
+
+import exceptions.InvalidCommandException;
+
 import java.io.IOException;
 
-class ToDo extends Task {
+public class ToDo extends Task {
     public ToDo(String taskName) throws InvalidCommandException, IOException {
         super(taskName);
     }

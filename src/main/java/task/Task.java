@@ -1,8 +1,9 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+package task;
 
-class Task {
+import exceptions.NullTaskDescriptionException;
+import java.io.IOException;
+
+public class Task {
     private String taskName;
     private boolean done = false;
 

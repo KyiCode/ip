@@ -1,3 +1,5 @@
+package fileoperator;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -6,8 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import task.DeadLine;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
+import task.Event;
 
-class FileOperator {
+public class FileOperator {
 
     public static void append(Path filePath, Task task) throws IOException {
         FileWriter fw = new FileWriter(String.valueOf(filePath), true);

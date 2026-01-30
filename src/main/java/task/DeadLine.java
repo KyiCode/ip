@@ -1,7 +1,13 @@
+package task;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidDeadLineFormatException;
+import exceptions.NullDateException;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
-class DeadLine extends Task {
+public class DeadLine extends Task {
     LocalDate deadline;
     public DeadLine (String[] taskDetails) throws InvalidCommandException, IOException {
         super(taskDetails[0]);
