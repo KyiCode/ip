@@ -1,7 +1,20 @@
+package meow;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidCommandFormatException;
+import exceptions.InvalidMarkingException;
+import fileoperator.FileOperator;
+import helper.StringHelper;
+import task.DeadLine;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
+import task.Event;
+
 import java.io.IOException;
 import java.nio.file.Path;
 
-class Parser {
+public class Parser {
     String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
     String outro = "Bye. Hope to see you again soon!\n";
 

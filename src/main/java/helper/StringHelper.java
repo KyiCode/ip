@@ -1,3 +1,7 @@
+package helper;
+
+import exceptions.InvalidEventFormatException;
+
 public class StringHelper {
     String string;
 
