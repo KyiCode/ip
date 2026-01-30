@@ -2,6 +2,12 @@ class CommandException extends Exception {
     public CommandException(String msg) { super(msg); }
 }
 
+class InvalidCommandFormatException extends  InvalidCommandException {
+    public InvalidCommandFormatException() {
+        super("Check command Format! /help for lists of commands!");
+    }
+}
+
 
 class InvalidCommandException extends CommandException {
     public InvalidCommandException() {

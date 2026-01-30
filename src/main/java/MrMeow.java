@@ -2,13 +2,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
-public class Meow {
+public class MrMeow {
     public static void main(String[] args)  {
-        Brain meowmeow = new Brain();
+        Parser meowmeow = new Parser();
         Scanner sc = new Scanner(System.in);
 
         Path dataDir = Paths.get("ip/data");

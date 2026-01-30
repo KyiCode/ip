@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class TaskList {
     private static ArrayList<Task> list;
 
-    public static void load(Path filePath, Brain brain) throws IOException, InvalidCommandException {
+    public static void load(Path filePath, Parser brain) throws IOException, InvalidCommandException {
         list = new ArrayList<>();
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
@@ -74,7 +74,7 @@ public class TaskList {
         System.out.println("I've eaten this task:");
         System.out.println(task.toString());
         System.out.println(TaskList.getListSize() + " tasks in list.");
-        FileOperator.delOperation(taskIndex);
+
     }
 
     public static int getListSize() {
