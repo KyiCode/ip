@@ -34,54 +34,43 @@ class Parser {
             throw new InvalidCommandFormatException();
         }
 
-        if (command.equals("mark")) {
-            Task task = TaskList.markDone(stringHelper.getIndex());
-            FileOperator.markOperation(filePath, task);
-            return;
-        }
-
-        if (command.equals("unmark")) {
-            Task task = TaskList.markUndone(stringHelper.getIndex());
-            FileOperator.markOperation(filePath, task);
-            return;
-        }
-
-        if (command.equals("delete")) {
-            TaskList.delete(stringHelper.getIndex());
-            FileOperator.delOperation(stringHelper.getIndex());
-            return;
+        switch (command) {
+            case "mark" -> {
+                Task task = TaskList.markDone(stringHelper.getIndex());
+                FileOperator.markOperation(filePath, task);
+                return;
+            }
+            case "unmark" -> {
+                Task task = TaskList.markUndone(stringHelper.getIndex());
+                FileOperator.markOperation(filePath, task);
+                return;
+            }
+            case "delete" -> {
+                TaskList.delete(stringHelper.getIndex());
+                FileOperator.delOperation(stringHelper.getIndex());
+                return;
+            }
         }
 
         if (!stringHelper.hasTaskDescription()) {
             throw new NullTaskDescriptionException();
         }
 
-        if (command.equals("todo")) {
-            splittedinput = input.split("todo ");
-
-            Task task = new ToDo(splittedinput[1]);
-            FileOperator.append(filePath, task);
-            return;
+        Task task;
+        switch (command) {
+            case "todo" -> {
+                task = new ToDo(stringHelper.getTaskDetails());
+            }
+            case "deadline" -> {
+                task = new DeadLineTask(stringHelper.getDeadLineDetails());
+            }
+            case "event" -> {
+                task = new Event(stringHelper.getEventDetails());
+            }
+            default -> throw new InvalidCommandException();
         }
 
-        if (command.equals("deadline")) {
-            splittedinput = input.split("deadline ");
-
-            Task task = new DeadLineTask(splittedinput[1].split(" /by "));
-            FileOperator.append(filePath, task);
-            return;
-        }
-
-        if (command.equals("event")) {
-            splittedinput = input.split("event ");
-
-
-            Task task = new Event(splittedinput[1].split(" /from "));
-            FileOperator.append(filePath, task);
-            return;
-        }
-
-        throw new InvalidCommandException();
+        FileOperator.append(filePath, task);
 
     }
 }
