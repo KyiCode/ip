@@ -22,7 +22,7 @@ public class MrMeow {
         }
 
         try {
-            TaskList.load(filePath, meowmeow);
+            Storage.load(filePath, meowmeow);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Corrupted Data, Please Check!");
@@ -32,8 +32,8 @@ public class MrMeow {
         while (sc.hasNext()) {
             String text = sc.nextLine();
             try {
-                meowmeow.thinking(text, filePath);
-                System.out.println();
+                text = meowmeow.thinking(text, filePath);
+                System.out.println(text);
             } catch (InvalidCommandException | InvalidMarkingException e) {
                 System.out.println(e.getMessage());
                 continue;
