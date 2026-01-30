@@ -26,6 +26,8 @@ public class Meow {
         try {
             TaskList.load(filePath, meowmeow);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Corrupted Data, Please Check!");
             return;
         }
 
@@ -33,6 +35,7 @@ public class Meow {
             String text = sc.nextLine();
             try {
                 meowmeow.thinking(text, filePath);
+                System.out.println();
             } catch (InvalidCommandException | InvalidMarkingException e) {
                 System.out.println(e.getMessage());
                 continue;
@@ -45,33 +48,3 @@ public class Meow {
 
 
 
-
-
-
-class InvalidCommandException extends Exception {
-    public InvalidCommandException() {
-        super("invalid command!");
-    }
-
-    public InvalidCommandException(String msg) {
-        super(msg);
-    }
-}
-
-class NullTaskDescriptionException extends InvalidCommandException {
-    public NullTaskDescriptionException() {
-        super("task description is empty!");
-    }
-}
-
-class NullDateException extends InvalidCommandException {
-    public NullDateException() {
-        super("Date description should not be empty!");
-    }
-}
-
-class InvalidMarkingException extends Exception {
-    public InvalidMarkingException(){
-        super("Task do not exists.");
-    }
-}

@@ -13,6 +13,10 @@ class Brain {
     public void thinking(String text, Path filePath) throws InvalidCommandException, InvalidMarkingException, IOException {
         String[] splittedText = text.split(" ");
 
+        if (text.equals(" ") || text.isEmpty()) {
+            return;
+        }
+
         if (text.equals("bye")) {
             System.out.println(outro);
             return;
@@ -23,6 +27,11 @@ class Brain {
             //FileOperator.iterateList(filePath);
             return;
         }
+
+        if (splittedText.length <= 1) {
+            throw new InvalidCommandException();
+        }
+
 
         if (splittedText[0].equals("mark")) {
             Task task = TaskList.markDone(Integer.parseInt(splittedText[1]));
@@ -43,6 +52,9 @@ class Brain {
 
         if (splittedText[0].equals("todo")) {
             splittedText = text.split("todo ");
+            if (splittedText.length != 2) {
+                throw new NullTaskDescriptionException();
+            }
             Task task = new ToDo(splittedText[1]);
             FileOperator.append(filePath, task);
             return;
@@ -50,16 +62,21 @@ class Brain {
 
         if (splittedText[0].equals("deadline")) {
             splittedText = text.split("deadline ");
-            Task task = new Deadline(splittedText[1].split(" /by "));
+            if (splittedText.length != 2) {
+                throw new NullTaskDescriptionException();
+            }
+            Task task = new DeadLineTask(splittedText[1].split(" /by "));
             FileOperator.append(filePath, task);
             return;
         }
+
         if (splittedText[0].equals("event")) {
             splittedText = text.split("event ");
-            splittedText = splittedText[1].split(" /from ");
-            String eventName = splittedText[0];
-            splittedText = splittedText[1].split(" /to ");
-            Task task = new Event(eventName, splittedText[0], splittedText[1]);
+            if (splittedText.length != 2) {
+                throw new NullTaskDescriptionException();
+            }
+
+            Task task = new Event(splittedText[1].split(" /from "));
             FileOperator.append(filePath, task);
             return;
         }

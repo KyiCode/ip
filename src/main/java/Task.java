@@ -5,67 +5,17 @@ import java.util.ArrayList;
 class ToDo extends Task {
     public ToDo(String taskName) throws InvalidCommandException, IOException {
         super(taskName);
+        TaskList.add(this);
         System.out.println("Added: " + this.toString());
         System.out.println(TaskList.getListSize() + " tasks in list.");
     }
 
     public ToDo(String taskName, int mode) throws InvalidCommandException, IOException {
         super(taskName);
+        TaskList.add(this);
     }
 }
 
-class Deadline extends Task {
-    String deadline = " ";
-    public Deadline (String[] taskName) throws InvalidCommandException, IOException {
-        super(taskName[0]);
-        this.deadline = taskName[1];
-        if (this.deadline == null) throw new NullDateException();
-        System.out.println("Added: " + this.toString());
-        System.out.println(TaskList.getListSize() + " tasks in list.");
-    }
-
-    public Deadline (String taskName, String deadLine, int mode) throws InvalidCommandException, IOException {
-        super(taskName);
-        this.deadline = deadLine;
-        if (this.deadline == null) throw new NullDateException();
-    }
-
-    @Override
-    public String toString() {
-        String doneStatus = "[D][ ] ";
-        if (this.status()) doneStatus = "[D][X] ";
-        return doneStatus + this.getTaskName() + " (by: " + deadline +")";
-    }
-}
-
-class Event extends Task {
-    String from;
-    String to;
-    public Event (String taskName, String from, String to) throws InvalidCommandException, IOException {
-        super(taskName);
-        this.from = from;
-        this.to = to;
-        if (this.from == null || this.to == null) throw new NullDateException();
-
-        System.out.println("Added: " + this.toString());
-        System.out.println(TaskList.getListSize() + " tasks in list.");
-    }
-
-    public Event (String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
-        super(taskName);
-        this.from = from;
-        this.to = to;
-        if (this.from == null || this.to == null) throw new NullDateException();
-
-    }
-
-    @Override
-    public String toString() {
-        String doneStatus = "[E][ ] ";
-        if (this.status()) doneStatus = "[E][X] ";
-        return doneStatus + this.getTaskName() + " (from: " + from + " to: " + to + ")";
-    }
-}
 
 class Task {
     private String taskName;
@@ -76,7 +26,6 @@ class Task {
         if (this.taskName == null) {
             throw new NullTaskDescriptionException();
         }
-        TaskList.add(this);
     }
 
     public void setDone() {

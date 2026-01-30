@@ -2,8 +2,15 @@ list
 todo borrow book
 mark 2
 deadline return book /by Sunday
-mark 1
 list
+deadline return book /by 2026/12/01-
+deadline return book /by 2026/12/01-01
+deadline return book /by 2026/12/01
+deadline run home /by 2026/12/01-12:00
+deadline run home /by 2026/12/01 12:00
+event project meeting /from Mon 2pm /to
+event project meeting /from
+event project meeting
 event project meeting /from Mon 2pm /to 4pm
 mark 2
 list

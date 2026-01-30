@@ -1,28 +1,48 @@
 Hello! I'm Meow
 What can I do for you?
 
+Tasks in List:
+Nothing to see here...
+
 Added: [T][ ] borrow book
 1 tasks in list.
-Added: [D][ ] return book (by: Sunday)
-2 tasks in list.
-Nice! I've marked this task as done:
-[T][X] borrow book
-Tasks in List: 
-1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-Added: [E][ ] project meeting (from: Mon 2pm to: 4pm)
-3 tasks in list.
-Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
-Tasks in List: 
-1. [T][X] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-I've marked this task as not done yet:
+
+Task do not exists.
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Tasks in List:
+1. [T][ ] borrow book
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Date Format should be in YYYY-MM-DD or YYYY-MM-DD HH:MM
+
+Event Format should be in Event ... /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
+
+Event Format should be in Event ... /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
+
+Event Format should be in Event ... /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
+
+Event Format should be in Event ... /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM
+
+Task do not exists.
+
+Tasks in List:
+1. [T][ ] borrow book
+
+I've marked task index 1 as  undone:
 [T][ ] borrow book
+
 Tasks in List: 
 1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
 Bye. Hope to see you again soon!
+
 

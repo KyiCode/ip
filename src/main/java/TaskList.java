@@ -22,18 +22,23 @@ public class TaskList {
             }
             if (text.startsWith("[D]")) {
                 text = text.split("] ")[1];
-                String[] textArr = text.split(" \\(by: ");
-                String taskText = textArr[0];
-                String deadline = textArr[1].split("\\)")[0];
-                Task task = new Deadline(taskText, deadline, 1);
+                String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
+                if (deadLineDetails.length != 2) {
+                    throw new NullDateException();
+                }
+                Task task = new DeadLineTask(deadLineDetails[0], deadLineDetails[1], 1);
             }
             if (text.startsWith("[E]")) {
                 text = text.split("] ")[1];
-                String[] textArr = text.split(" \\(from: ");
-                String taskText = textArr[0];
-                String from = textArr[1].split(" to: ")[0];
-                String to = textArr[1].split("\\)")[0];
-                Task task = new Event(taskText, to, from, 1);
+                String[] eventDetails = text.split(" \\|\\| From: ");
+                if (eventDetails.length != 2) {
+                    throw new InvalidEventFormatException();
+                }
+                String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
+                if (eventDateTimeDetails.length != 2) {
+                    throw new InvalidEventFormatException();
+                }
+                Task task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], 1);
             }
         }
         sc.close();
@@ -48,7 +53,7 @@ public class TaskList {
         if (taskIndex > list.size()) throw new InvalidMarkingException();
         Task task = list.get(taskIndex - 1);
         task.setDone();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked task index " + taskIndex + " as done:");
         System.out.println(task.toString());
         return task;
     }
@@ -57,7 +62,7 @@ public class TaskList {
         if (taskIndex > list.size()) throw new InvalidMarkingException();
         Task task = list.get(taskIndex - 1);
         task.setNotDone();
-        System.out.println("I've marked this task as not done yet:");
+        System.out.println("I've marked task index " + taskIndex + " as  undone:");
         System.out.println(task.toString());
         return task;
     }
