@@ -11,9 +11,8 @@ class Parser {
 
     public void thinking(String input, Path filePath) throws InvalidCommandException, InvalidMarkingException, IOException {
         StringHelper stringHelper = new StringHelper(input);
-        
-        String[] splittedinput = input.split(" ");
         String command = stringHelper.getCommand();
+        Task task;
 
         if (input.equals(" ") || input.isEmpty()) {
             return;
@@ -36,12 +35,12 @@ class Parser {
 
         switch (command) {
             case "mark" -> {
-                Task task = TaskList.markDone(stringHelper.getIndex());
+                task = TaskList.markDone(stringHelper.getIndex());
                 FileOperator.markOperation(filePath, task);
                 return;
             }
             case "unmark" -> {
-                Task task = TaskList.markUndone(stringHelper.getIndex());
+                task = TaskList.markUndone(stringHelper.getIndex());
                 FileOperator.markOperation(filePath, task);
                 return;
             }
@@ -56,7 +55,6 @@ class Parser {
             throw new NullTaskDescriptionException();
         }
 
-        Task task;
         switch (command) {
             case "todo" -> {
                 task = new ToDo(stringHelper.getTaskDetails());
@@ -70,6 +68,7 @@ class Parser {
             default -> throw new InvalidCommandException();
         }
 
+        TaskList.add(task);
         FileOperator.append(filePath, task);
 
     }

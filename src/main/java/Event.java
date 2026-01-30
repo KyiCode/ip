@@ -17,7 +17,7 @@ class Event extends Task {
         }
         this.from = new EventDateTime(eventDetails[0]);
         this.to = new EventDateTime(eventDetails[1]);
-        TaskList.add(this);
+
         System.out.println("Added: " + this.toString());
         System.out.println(TaskList.getListSize() + " tasks in list.");
     }

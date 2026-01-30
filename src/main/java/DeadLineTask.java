@@ -14,7 +14,6 @@ class DeadLineTask extends Task {
         }
         this.deadline = new DeadLine(taskDetails[1]);
 
-        TaskList.add(this);
         System.out.println("Added: " + this.toString());
         System.out.println(TaskList.getListSize() + " tasks in list.");
     }
