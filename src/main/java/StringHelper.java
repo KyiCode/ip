@@ -1,7 +1,6 @@
 public class StringHelper {
     String string;
 
-
     public StringHelper(String text) {
         this.string = text.toLowerCase();
     }
@@ -22,15 +21,15 @@ public class StringHelper {
         return string.split(this.getCommand())[1].split(" /by ");
     }
 
-    public String[] getEventDetails() {
+    public String[] getEventDetails() throws InvalidEventFormatException {
         String[] arr = new String[3];
+        if (!this.isValidEventCommandFormat()) {
+            throw new InvalidEventFormatException();
+        }
         arr[0] = string.split(this.getCommand())[1].split(" /from ")[0];
-        arr[1] = string.split(this.getCommand())[1].split(" /from ")[0].split(" /to ")[0];
-        arr[2] = string.split(this.getCommand())[1].split(" /from ")[0].split(" /to ")[1];
+        arr[1] = string.split(this.getCommand())[1].split(" /from ")[1];
         return arr;
     }
-
-
 
     public boolean isValidCommandFormat() {
         return string.split(" ").length > 1;
@@ -40,6 +39,10 @@ public class StringHelper {
         return string.split(this.getCommand()).length == 2;
     }
 
-
+    public boolean isValidEventCommandFormat() {
+        boolean a = string.split(this.getCommand())[1].split(" /from ").length == 2;
+        boolean b = string.split(this.getCommand())[1].split(" /to ").length == 2;
+        return a && b;
+    }
 
 }

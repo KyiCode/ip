@@ -9,24 +9,23 @@ class Parser {
         System.out.println(intro);
     }
 
-    public void thinking(String input, Path filePath) throws InvalidCommandException, InvalidMarkingException, IOException {
+    public String thinking(String input, Path filePath) throws InvalidCommandException, InvalidMarkingException, IOException {
         StringHelper stringHelper = new StringHelper(input);
         String command = stringHelper.getCommand();
         Task task;
 
         if (input.equals(" ") || input.isEmpty()) {
-            return;
+            return "";
         }
 
         if (command.equals("bye")) {
-            System.out.println(outro);
-            return;
+            return outro;
         }
 
         if (command.equals("list")) {
             TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
-            return;
+            return "";
         }
 
         if (!stringHelper.isValidCommandFormat()) {
@@ -37,22 +36,18 @@ class Parser {
             case "mark" -> {
                 task = TaskList.markDone(stringHelper.getIndex());
                 FileOperator.markOperation(filePath, task);
-                return;
+                return "Done: " + task.toString();
             }
             case "unmark" -> {
                 task = TaskList.markUndone(stringHelper.getIndex());
                 FileOperator.markOperation(filePath, task);
-                return;
+                return "Unmarked: " + task.toString();
             }
             case "delete" -> {
-                TaskList.delete(stringHelper.getIndex());
+                task = TaskList.delete(stringHelper.getIndex());
                 FileOperator.delOperation(stringHelper.getIndex());
-                return;
+                return "Removed: " + task.toString();
             }
-        }
-
-        if (!stringHelper.hasTaskDescription()) {
-            throw new NullTaskDescriptionException();
         }
 
         switch (command) {
@@ -60,7 +55,7 @@ class Parser {
                 task = new ToDo(stringHelper.getTaskDetails());
             }
             case "deadline" -> {
-                task = new DeadLineTask(stringHelper.getDeadLineDetails());
+                task = new DeadLine(stringHelper.getDeadLineDetails());
             }
             case "event" -> {
                 task = new Event(stringHelper.getEventDetails());
@@ -71,5 +66,6 @@ class Parser {
         TaskList.add(task);
         FileOperator.append(filePath, task);
 
+        return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
     }
 }
