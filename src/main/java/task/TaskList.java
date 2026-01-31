@@ -33,6 +33,25 @@ public class TaskList {
 
     }
 
+    public static String find(String keyWord) {
+        StringBuilder output = new StringBuilder("No Task Found");
+        boolean isFound = false;
+        int count = 1;
+
+        for (Task task : list) {
+            String taskDetail = task.getTaskName();
+            if (taskDetail.contains(keyWord)) {
+                if (!isFound) {
+                    output = new StringBuilder(String.valueOf(count) + task.toString() + "\n");
+                    isFound = true;
+                    continue;
+                }
+                output.append(String.valueOf(count)).append(task.toString()).append("\n");
+            }
+        }
+        return output.toString();
+    }
+
     public static int getListSize() {
         return list.size();
     }

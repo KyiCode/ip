@@ -35,10 +35,6 @@ public class Parser {
             return outro;
         }
 
-        if (command.equals("find")) {
-
-        }
-
         if (command.equals("list")) {
             TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
@@ -65,6 +61,9 @@ public class Parser {
                 FileOperator.delOperation(stringHelper.getIndex());
                 return "Removed: " + task.toString();
             }
+            case "find" -> {
+                return TaskList.find(stringHelper.getTaskDetails());
+            }
         }
 
         switch (command) {
@@ -79,6 +78,8 @@ public class Parser {
             }
             default -> throw new InvalidCommandException();
         }
+
+
 
         TaskList.add(task);
         FileOperator.append(filePath, task);
