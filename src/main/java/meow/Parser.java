@@ -35,6 +35,10 @@ public class Parser {
             return outro;
         }
 
+        if (command.equals("find")) {
+
+        }
+
         if (command.equals("list")) {
             TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
