@@ -6,9 +6,20 @@ import exceptions.InvalidEventFormatException;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Event Class to represent a Task with a start and end duration.
+ */
 public class Event extends Task {
     LocalDate from;
     LocalDate to;
+
+    /**
+     * Construct an Event instance.
+     *
+     * @param eventDetails String array of Event details, Event start date and Event end date.
+     * @throws InvalidCommandException if Event command is in invalid format.
+     * @throws IOException if input string is invalid.
+     */
     public Event (String[] eventDetails) throws InvalidCommandException, IOException {
         super(eventDetails[0]);
         
@@ -24,6 +35,16 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * loads the Event string from Storage File.
+     *
+     * @param taskName string task details.
+     * @param from string event start date.
+     * @param to string event end date.
+     * @param mode any integer to overload Event constructor.
+     * @throws InvalidCommandException if Event command is in invalid format.
+     * @throws IOException if input string is invalid.
+     */
     public Event (String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
         super(taskName);
         this.from = LocalDate.parse(from);
@@ -34,7 +55,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String doneStatus = "[E][ ] ";
-        if (this.status()) doneStatus = "[E][X] ";
+        if (this.getStatus()) doneStatus = "[E][X] ";
         return doneStatus + this.getTaskName() + " || From: " + from + " To: " + to;
     }
 }

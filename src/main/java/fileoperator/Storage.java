@@ -16,7 +16,19 @@ import task.ToDo;
 import task.Event;
 import meow.Parser;
 
+/**
+ * Storage class to perform tasks on Storage file.
+ */
 public class Storage {
+
+    /**
+     * Loads and initialise task strings from storage task list.
+     *
+     * @param filePath file path of storage file.
+     * @param brain current processing instance.
+     * @throws IOException if filePath of storage file is invalid.
+     * @throws InvalidCommandException if file is corrupted and contains task representations of invalid format.
+     */
     public static void load(Path filePath, Parser brain) throws IOException, InvalidCommandException {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
