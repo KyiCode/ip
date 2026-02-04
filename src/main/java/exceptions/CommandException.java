@@ -9,8 +9,11 @@ class CommandException extends Exception {
      *
      * @param msg to be output.
      */
-    public CommandException(String msg) { super(msg); }
+    public CommandException(String msg) {
+        super(msg);
+    }
 }
+
 
 
 

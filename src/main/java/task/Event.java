@@ -20,7 +20,7 @@ public class Event extends Task {
      * @throws InvalidCommandException if Event command is in invalid format.
      * @throws IOException if input string is invalid.
      */
-    public Event (String[] eventDetails) throws InvalidCommandException, IOException {
+    public Event(String[] eventDetails) throws InvalidCommandException, IOException {
         super(eventDetails[0]);
         
         if (eventDetails[0].isEmpty() || eventDetails[1].isEmpty()) {
@@ -45,7 +45,7 @@ public class Event extends Task {
      * @throws InvalidCommandException if Event command is in invalid format.
      * @throws IOException if input string is invalid.
      */
-    public Event (String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
+    public Event(String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
         super(taskName);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
@@ -55,7 +55,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         String doneStatus = "[E][ ] ";
-        if (this.getStatus()) doneStatus = "[E][X] ";
+        if (this.getStatus()) {
+            doneStatus = "[E][X] ";
+        }
         return doneStatus + this.getTaskName() + " || From: " + from + " To: " + to;
     }
 }

@@ -20,7 +20,7 @@ public class DeadLine extends Task {
      * @throws InvalidCommandException if Command input is in wrong format.
      * @throws IOException if task details String is not valid.
      */
-    public DeadLine (String[] taskDetails) throws InvalidCommandException, IOException {
+    public DeadLine(String[] taskDetails) throws InvalidCommandException, IOException {
         super(taskDetails[0]);
         if (taskDetails.length != 2) {
             throw new NullDateException();
@@ -42,7 +42,7 @@ public class DeadLine extends Task {
      * @throws InvalidCommandException if file is corrupted with invalid tasks.
      * @throws IOException if string from task is invalid.
      */
-    public DeadLine (String taskDetails, String deadLineDetails, int mode) throws InvalidCommandException, IOException {
+    public DeadLine(String taskDetails, String deadLineDetails, int mode) throws InvalidCommandException, IOException {
         super(taskDetails);
         this.deadline = LocalDate.parse(deadLineDetails);
         TaskList.add(this);
@@ -51,7 +51,9 @@ public class DeadLine extends Task {
     @Override
     public String toString() {
         String doneStatus = "[D][ ] ";
-        if (this.getStatus()) doneStatus = "[D][X] ";
+        if (this.getStatus()) {
+            doneStatus = "[D][X] ";
+        }
         return doneStatus + this.getTaskName() + " || Deadline: " + deadline.toString();
     }
 }

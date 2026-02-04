@@ -7,7 +7,7 @@ import exceptions.InvalidEventFormatException;
  * StringHelper Class to process input Strings, then return relevant information.
  */
 public class StringHelper {
-    String string;
+    private String string;
 
     /**
      * Constructs a StringHelper instance, then normalising the input String.

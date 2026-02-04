@@ -1,5 +1,8 @@
 package fileoperator;
 
+import task.Task;
+import task.TaskList;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,11 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import task.DeadLine;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
-import task.Event;
+
 
 /**
  * Class FileOperator to perform changes to current storage file.
@@ -51,7 +50,7 @@ public class FileOperator {
             if (count == TaskList.getTaskIndex(task)) {
                 stringLine = task.toString();
             }
-            count+= 1;
+            count += 1;
             fw.write(stringLine + System.lineSeparator());
         }
         sc.close();
@@ -89,10 +88,10 @@ public class FileOperator {
         while (sc.hasNext()) {
             String stringLine = sc.nextLine();
             if (count + 1 == index) {
-                count+= 1;
+                count += 1;
                 continue;
             }
-            count+= 1;
+            count += 1;
             fw.write(stringLine + System.lineSeparator());
         }
         sc.close();

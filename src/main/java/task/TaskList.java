@@ -1,7 +1,7 @@
 package task;
 
 import exceptions.InvalidMarkingException;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -27,7 +27,9 @@ public class TaskList {
      * @throws InvalidMarkingException if marking operation on invalid task index.
      */
     public static Task markDone(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        if (taskIndex > list.size()) {
+            throw new InvalidMarkingException();
+        }
         Task task = list.get(taskIndex - 1);
         task.setDone();
         return task;
@@ -41,7 +43,9 @@ public class TaskList {
      * @throws InvalidMarkingException if marking operation on invalid task index.
      */
     public static Task markUndone(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        if (taskIndex > list.size()) {
+            throw new InvalidMarkingException();
+        }
         Task task = list.get(taskIndex - 1);
         task.setNotDone();
         return task;
@@ -55,7 +59,9 @@ public class TaskList {
      * @throws InvalidMarkingException if delete operation on invalid task index.
      */
     public static Task delete(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) throw new InvalidMarkingException();
+        if (taskIndex > list.size()) {
+            throw new InvalidMarkingException();
+        }
         Task task = list.get(taskIndex - 1);
         list.remove(taskIndex - 1);
         return task;
@@ -96,7 +102,9 @@ public class TaskList {
         int count = 1;
         System.out.println("Tasks in List: ");
 
-        if (list.isEmpty()) System.out.println("Nothing to see here...");
+        if (list.isEmpty()) {
+            System.out.println("Nothing to see here...");
+        }
 
         for (Task x : list) {
             System.out.println(count + ". " + x.toString());

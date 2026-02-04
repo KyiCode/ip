@@ -5,22 +5,20 @@ import exceptions.InvalidCommandFormatException;
 import exceptions.InvalidMarkingException;
 import fileoperator.FileOperator;
 import helper.StringHelper;
-import task.DeadLine;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
-import task.Event;
+import task.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
+
+
 
 
 /**
  * Parser Class acts as a processing unit of user input commands, delegating them to respective handlers.
  */
 public class Parser {
-    String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
-    String outro = "Bye. Hope to see you again soon!\n";
+    private String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
+    private String outro = "Bye. Hope to see you again soon!\n";
 
     /**
      * Constructs a Parser instance, and Prints the Introduction text of MrMeow.
@@ -64,40 +62,38 @@ public class Parser {
         }
 
         switch (command) {
-            case "mark" -> {
-                task = TaskList.markDone(stringHelper.getIndex());
-                FileOperator.markOperation(filePath, task);
-                return "Done: " + task.toString();
-            }
-            case "unmark" -> {
-                task = TaskList.markUndone(stringHelper.getIndex());
-                FileOperator.markOperation(filePath, task);
-                return "Unmarked: " + task.toString();
-            }
-            case "delete" -> {
-                task = TaskList.delete(stringHelper.getIndex());
-                FileOperator.delOperation(stringHelper.getIndex());
-                return "Removed: " + task.toString();
-            }
-            case "find" -> {
-                return TaskList.find(stringHelper.getTaskDetails());
-            }
+        case "mark" -> {
+            task = TaskList.markDone(stringHelper.getIndex());
+            FileOperator.markOperation(filePath, task);
+            return "Done: " + task.toString();
+        }
+        case "unmark" -> {
+            task = TaskList.markUndone(stringHelper.getIndex());
+            FileOperator.markOperation(filePath, task);
+            return "Unmarked: " + task.toString();
+        }
+        case "delete" -> {
+            task = TaskList.delete(stringHelper.getIndex());
+            FileOperator.delOperation(stringHelper.getIndex());
+            return "Removed: " + task.toString();
+        }
+        case "find" -> {
+            return TaskList.find(stringHelper.getTaskDetails());
+        }
         }
 
         switch (command) {
-            case "todo" -> {
-                task = new ToDo(stringHelper.getTaskDetails());
-            }
-            case "deadline" -> {
-                task = new DeadLine(stringHelper.getDeadLineDetails());
-            }
-            case "event" -> {
-                task = new Event(stringHelper.getEventDetails());
-            }
-            default -> throw new InvalidCommandException();
+        case "todo" -> {
+            task = new ToDo(stringHelper.getTaskDetails());
         }
-
-
+        case "deadline" -> {
+            task = new DeadLine(stringHelper.getDeadLineDetails());
+        }
+        case "event" -> {
+            task = new Event(stringHelper.getEventDetails());
+        }
+        default -> throw new InvalidCommandException();
+        }
 
         TaskList.add(task);
         FileOperator.append(filePath, task);
