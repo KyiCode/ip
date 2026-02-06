@@ -1,71 +1,84 @@
 package task;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidMarkingException;
+import exceptions.InvalidCommandFormatException;
+import exceptions.InvalidDeadLineFormatException;
+import exceptions.NullDateException;
 import meow.Parser;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeadLineTest {
+    private Parser parser;
+    private Path tempFile;
 
-    @Test
-    public void deadLineConstructorTest() throws InvalidCommandException, IOException, InvalidMarkingException {
-        Parser test = new Parser();
-        Path filePath = Paths.get("ip/data/testMeow.txt");
-
-        try {
-            test.thinking(" ", filePath);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        try {
-            test.thinking("deadline return book  ", filePath);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-
-
-        try {
-            test.thinking(" deadline return book /by ", filePath);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        try {
-            test.thinking(" deadline return book /by 20 26/12/01-", filePath);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        try {
-            test.thinking("deadline run home /by 2026/12/0 ", filePath);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        try {
-            test.thinking(" deadline run home /by 2026/12/01", filePath);
-
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
+    @BeforeEach
+    void setUp() throws IOException, IOException {
+        parser = new Parser();
+        tempFile = Files.createTempFile("meow-test", ".txt");
+        Files.writeString(tempFile, "");
     }
 
+    @AfterEach
+    void tearDown() throws IOException {
+        Files.deleteIfExists(tempFile);
+    }
+
+    @Test
+    void deadLine_noDescription_exceptionThrown() throws Exception {
+        assertThrows(InvalidCommandFormatException.class,
+                () -> parser.thinking("deadline  ", tempFile));
+    }
+
+    @Test
+    void deadLine_noDescriptionTwo_exceptionThrown() throws Exception {
+        assertThrows(InvalidDeadLineFormatException.class,
+                () -> parser.thinking("deadline /by 2024.12.12  ", tempFile));
+    }
+
+    @Test
+    void deadLine_noDeadLineCommand_exceptionThrown() throws Exception {
+        assertThrows(NullDateException.class,
+                () -> parser.thinking("deadline test  ", tempFile));
+    }
+
+    @Test
+    void deadLine_noDeadLineOne_exceptionThrown() throws Exception {
+        assertThrows(NullDateException.class,
+                () -> parser.thinking("deadline test /by", tempFile));
+    }
+
+    @Test
+    void deadLine_noDeadLineTwo_exceptionThrown() throws Exception {
+        assertThrows(NullDateException.class,
+                () -> parser.thinking("deadline test /by ", tempFile));
+    }
+
+    @Test
+    void deadLine_inValidDeadLineTwo_exceptionThrown() throws Exception {
+        assertThrows(InvalidDeadLineFormatException.class,
+                () -> parser.thinking("deadline test /by 2024-13-12  ", tempFile));
+    }
+
+    @Test
+    void deadLine_test_noTrailingSpace() throws Exception {
+        assertThrows(InvalidDeadLineFormatException.class,
+                () -> parser.thinking("deadline test /by 2026-12-12  ", tempFile));
+    }
+
+    @Test
+    void thinking_adddeadline_success() throws Exception {
+        String result = parser.thinking("deadline test /by 2026-12-03", tempFile);
+        System.out.println(result);
+        assertTrue(result.contains("[D][ ] test"));
+        assertTrue(result.contains("2026-12-03"));
+    }
 }
+

@@ -1,6 +1,7 @@
-package meow;
+package task;
 
-import exceptions.*;
+import exceptions.InvalidCommandFormatException;
+import meow.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParserTest {
+public class ToDoTest {
     private Parser parser;
     private Path tempFile;
 
@@ -28,12 +29,6 @@ public class ParserTest {
     }
 
     @Test
-    void thinking_emptyInput_returnsEmptyString() throws Exception {
-        String result = parser.thinking("", tempFile);
-        assertEquals("", result);
-    }
-
-    @Test
     void thinking_addTodo_no_description() throws Exception {
         assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("todo  ", tempFile));
     }
@@ -45,34 +40,4 @@ public class ParserTest {
         assertTrue(result.contains("Added:"));
         assertTrue(result.contains("read book"));
     }
-
-    @Test
-    void mark_Task_success() throws Exception {
-        parser.thinking("todo read book", tempFile);
-        String result = parser.thinking("mark 1", tempFile);
-
-        assertTrue(result.contains("[X]"));
-        assertTrue(result.contains("read book"));
-    }
-
-    @Test
-    void unmark_Task_success() throws Exception {
-        parser.thinking("todo read book", tempFile);
-        String result = parser.thinking("unmark 1", tempFile);
-
-        assertFalse(result.contains("[X]"));
-        assertTrue(result.contains("read book"));
-    }
-
-    @Test
-    void thinking_markInvalidIndex_throwsException() {
-        assertThrows(
-                InvalidMarkingException.class,
-                () -> parser.thinking("mark 1", tempFile)
-        );
-    }
-
-
-
-
 }

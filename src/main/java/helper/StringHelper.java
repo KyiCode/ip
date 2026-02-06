@@ -42,7 +42,7 @@ public class StringHelper {
      * @return String Task Description.
      */
     public String getTaskDetails() {
-        return string.split(this.getCommand())[1];
+        return string.split(this.getCommand() + " ")[1];
     }
 
     /**
@@ -51,7 +51,7 @@ public class StringHelper {
      * @return String DeadLine.
      */
     public String[] getDeadLineDetails() {
-        return string.split(this.getCommand())[1].split(" /by ");
+        return string.split(this.getCommand() + " ")[1].split(" /by ");
     }
 
     /**
@@ -65,7 +65,7 @@ public class StringHelper {
         if (!this.isValidEventCommandFormat()) {
             throw new InvalidEventFormatException();
         }
-        arr[0] = string.split(this.getCommand())[1].split(" /from ")[0];
+        arr[0] = string.split(this.getCommand() + " ")[1].split(" /from ")[0];
         arr[1] = string.split(this.getCommand())[1].split(" /from ")[1];
         return arr;
     }
