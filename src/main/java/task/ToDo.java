@@ -24,12 +24,15 @@ public class ToDo extends Task {
      * Loads a task String from storage file.
      *
      * @param taskName string of Task details.
-     * @param mode any integer to overload constructor.
+     * @param status completion status of loaded task.
      * @throws InvalidCommandException if input command is invalid.
      * @throws IOException if string is invalid.
      */
-    public ToDo(String taskName, int mode) throws InvalidCommandException, IOException {
+    public ToDo(String taskName, boolean status) throws InvalidCommandException, IOException {
         super(taskName);
+        if (status) {
+            this.setDone();
+        }
         TaskList.add(this);
     }
 }

@@ -41,12 +41,15 @@ public class Event extends Task {
      * @param taskName string task details.
      * @param from string event start date.
      * @param to string event end date.
-     * @param mode any integer to overload Event constructor.
+     * @param status completion status of loaded event task.
      * @throws InvalidCommandException if Event command is in invalid format.
      * @throws IOException if input string is invalid.
      */
-    public Event (String taskName, String from, String to, int mode) throws InvalidCommandException, IOException {
+    public Event (String taskName, String from, String to, boolean status) throws InvalidCommandException, IOException {
         super(taskName);
+        if (status) {
+            this.setDone();
+        }
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
         TaskList.add(this);

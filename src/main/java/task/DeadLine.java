@@ -38,13 +38,16 @@ public class DeadLine extends Task {
      *
      * @param taskDetails string of Task Description.
      * @param deadLineDetails string of Task Deadline.
-     * @param mode any Integer to overload constructor.
+     * @param status completion status of loaded deadline task.
      * @throws InvalidCommandException if file is corrupted with invalid tasks.
      * @throws IOException if string from task is invalid.
      */
-    public DeadLine (String taskDetails, String deadLineDetails, int mode) throws InvalidCommandException, IOException {
+    public DeadLine (String taskDetails, String deadLineDetails, boolean status) throws InvalidCommandException, IOException {
         super(taskDetails);
         this.deadline = LocalDate.parse(deadLineDetails);
+        if (status) {
+            this.setDone();
+        }
         TaskList.add(this);
     }
 

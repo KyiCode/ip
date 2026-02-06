@@ -35,18 +35,21 @@ public class Storage {
             String text = sc.nextLine();
 
             if (text.startsWith("[T]")) {
+                boolean isDone = text.startsWith("[T][X]");
                 text = text.split("] ")[1];
-                Task task = new ToDo(text, 1);
+                Task task = new ToDo(text, isDone);
             }
             if (text.startsWith("[D]")) {
+                boolean isDone = text.startsWith("[D][X]");
                 text = text.split("] ")[1];
                 String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
                 if (deadLineDetails.length != 2) {
                     throw new NullDateException();
                 }
-                Task task = new DeadLine(deadLineDetails[0], deadLineDetails[1], 1);
+                Task task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
             }
             if (text.startsWith("[E]")) {
+                boolean isDone = text.startsWith("[E][X]");
                 text = text.split("] ")[1];
                 String[] eventDetails = text.split(" \\|\\| From: ");
                 if (eventDetails.length != 2) {
@@ -56,7 +59,7 @@ public class Storage {
                 if (eventDateTimeDetails.length != 2) {
                     throw new InvalidEventFormatException();
                 }
-                Task task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], 1);
+                Task task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
             }
         }
         sc.close();
