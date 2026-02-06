@@ -5,26 +5,27 @@ import exceptions.InvalidCommandException;
 import java.io.IOException;
 
 /**
- * Class to represent a task.
+ * Represents a ToDo task.
+ * A ToDo is a simple task with just a name and completion status.
  */
 public class ToDo extends Task {
 
     /**
-     * Construct a task instance.
+     * Construct a ToDo task instance.
      *
-     * @param taskName string of Task details.
-     * @throws InvalidCommandException if input command is invalid.
-     * @throws IOException if string is invalid.
+     * @param taskName Name or details of the task.
+     * @throws InvalidCommandException If input command is invalid.
+     * @throws IOException If string is invalid.
      */
     public ToDo(String taskName) throws InvalidCommandException, IOException {
         super(taskName);
     }
 
     /**
-     * Loads a task String from storage file.
+     * Loads a ToDo task from storage file.
      *
-     * @param taskName string of Task details.
-     * @param status completion status of loaded task.
+     * @param taskName Name or details of the task
+     * @param status Completion status of loaded task.
      * @throws InvalidCommandException if input command is invalid.
      * @throws IOException if string is invalid.
      */

@@ -17,8 +17,8 @@ public class Event extends Task {
      * Construct an Event instance.
      *
      * @param eventDetails String array of Event details, Event start date and Event end date.
-     * @throws InvalidCommandException if Event command is in invalid format.
-     * @throws IOException if input string is invalid.
+     * @throws InvalidCommandException If Event command is in invalid format.
+     * @throws IOException If input string is invalid.
      */
     public Event(String[] eventDetails) throws InvalidCommandException, IOException {
         super(eventDetails[0]);
@@ -35,14 +35,14 @@ public class Event extends Task {
     }
 
     /**
-     * loads the Event string from Storage File.
+     * Loads the Event Task from Storage File.
      *
-     * @param taskName string task details.
-     * @param from string event start date.
-     * @param to string event end date.
-     * @param status completion status of loaded event task.
-     * @throws InvalidCommandException if Event command is in invalid format.
-     * @throws IOException if input string is invalid.
+     * @param taskName String of task description.
+     * @param from String of event start date.
+     * @param to String of event end date.
+     * @param status Completion status of loaded event task.
+     * @throws InvalidCommandException If Event command is in invalid format.
+     * @throws IOException If input string is invalid.
      */
     public Event(String taskName, String from, String to, boolean status) throws InvalidCommandException, IOException {
         super(taskName);

@@ -73,7 +73,7 @@ public class StringHelper {
     /**
      * Check if command is Valid.
      *
-     * @return true if command is valid.
+     * @return true If command is valid.
      */
     public boolean isValidCommandFormat() {
         return string.split(" ").length > 1;
@@ -82,7 +82,7 @@ public class StringHelper {
     /**
      * Check if String has Task Details.
      *
-     * @return true if input contains task details.
+     * @return true If input contains task details.
      */
     public boolean hasTaskDescription() {
         return string.split(this.getCommand()).length == 2;
@@ -91,7 +91,7 @@ public class StringHelper {
     /**
      * Check if Event input is in valid format.
      *
-     * @return true if Input is in correct format.
+     * @return true If Input is in correct format.
      */
     public boolean isValidEventCommandFormat() {
         boolean a = string.split(this.getCommand())[1].split(" /from ").length == 2;

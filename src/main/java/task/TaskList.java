@@ -5,13 +5,13 @@ import exceptions.InvalidMarkingException;
 import java.util.ArrayList;
 
 /**
- * TaskList class to represent the task list.
+ * TaskList class to represent a list of tasks.
  */
 public class TaskList {
     private static ArrayList<Task> list = new ArrayList<>();
 
     /**
-     * Add task to task list.
+     * Add a task to task list.
      *
      * @param task Task to be added.
      */
@@ -20,11 +20,11 @@ public class TaskList {
     }
 
     /**
-     * Mark the task of index in the task list as done.
+     * Mark the task at given index as done.
      *
-     * @param taskIndex index of task in task list.
-     * @return Task that is marked
-     * @throws InvalidMarkingException if marking operation on invalid task index.
+     * @param taskIndex Index of task in task list.
+     * @return Task The Task that had been marked.
+     * @throws InvalidMarkingException If marking operation on invalid task index.
      */
     public static Task markDone(int taskIndex) throws InvalidMarkingException {
         if (taskIndex > list.size()) {
@@ -38,9 +38,9 @@ public class TaskList {
     /**
      * Mark the task of index in the task list as not done.
      *
-     * @param taskIndex index of task in task list.
-     * @return Task that is marked
-     * @throws InvalidMarkingException if marking operation on invalid task index.
+     * @param taskIndex Index of task in task list.
+     * @return Task The Task that is marked.
+     * @throws InvalidMarkingException If marking operation on invalid task index.
      */
     public static Task markUndone(int taskIndex) throws InvalidMarkingException {
         if (taskIndex > list.size()) {
@@ -52,11 +52,11 @@ public class TaskList {
     }
 
     /**
-     * Delete the task of index in the task list as not done.
+     * Delete the task of index in the task list.
      *
-     * @param taskIndex index of task in task list.
-     * @return Task that is deleted.
-     * @throws InvalidMarkingException if delete operation on invalid task index.
+     * @param taskIndex Index of task in task list.
+     * @return Task The Task that was deleted.
+     * @throws InvalidMarkingException If delete operation on invalid task index.
      */
     public static Task delete(int taskIndex) throws InvalidMarkingException {
         if (taskIndex > list.size()) {
@@ -68,12 +68,11 @@ public class TaskList {
 
     }
 
-
     /**
-     * Find and returns the tasks in task list that are relevant to input keyword.
+     * Find and return tasks that contain the given keyword.
      *
-     * @param keyWord string of keyword to be matched to tasks.
-     * @return String representation of relevant tasks.
+     * @param keyWord String of keyword to search for.
+     * @return String Representation of relevant tasks.
      */
     public static String find(String keyWord) {
         StringBuilder output = new StringBuilder("No Task Found");
@@ -95,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * returns the size of the list.
+     * Returns the size of the task list.
      *
      * @return Integer size.
      */
@@ -121,7 +120,7 @@ public class TaskList {
     }
 
     /**
-     * returns the index of the specified task in the list.
+     * Returns the index of the specified task in the list.
      *
      * @param task Task to be queried.
      * @return Integer index of task.
@@ -131,7 +130,7 @@ public class TaskList {
     }
 
     /**
-     * for testing purposes only.
+     * Reset task list, For testing purposes only.
      */
     public static void reset() {
         list = new ArrayList<>();
