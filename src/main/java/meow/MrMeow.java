@@ -2,17 +2,20 @@ package meow;
 
 import exceptions.InvalidCommandException;
 import exceptions.InvalidMarkingException;
+import fileoperator.Storage;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import fileoperator.Storage;
 
+/**
+ * Main MrMeow class
+ */
 public class MrMeow {
     public static void main(String[] args)  {
-        Parser meowmeow = new Parser();
+        Parser meow = new Parser();
         Scanner sc = new Scanner(System.in);
 
         Path dataDir = Paths.get("ip/data");
@@ -28,7 +31,7 @@ public class MrMeow {
         }
 
         try {
-            Storage.load(filePath, meowmeow);
+            Storage.load(filePath, meow);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Corrupted Data, Please Check!");
@@ -38,7 +41,7 @@ public class MrMeow {
         while (sc.hasNext()) {
             String text = sc.nextLine();
             try {
-                text = meowmeow.thinking(text, filePath);
+                text = meow.thinking(text, filePath);
                 System.out.println(text);
             } catch (InvalidCommandException | InvalidMarkingException e) {
                 System.out.println(e.getMessage());
