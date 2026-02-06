@@ -3,18 +3,16 @@ package fileoperator;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
+import meow.Parser;
 import task.DeadLine;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
-import task.DeadLine;
-import task.Task;
-import task.TaskList;
-import task.ToDo;
-import task.Event;
-import meow.Parser;
 
 /**
  * Storage class to perform tasks on Storage file.
