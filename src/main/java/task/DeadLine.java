@@ -17,8 +17,8 @@ public class DeadLine extends Task {
      * Construct a DeadLine instance.
      *
      * @param taskDetails String Array of Task Details and Task Deadline.
-     * @throws InvalidCommandException if Command input is in wrong format.
-     * @throws IOException if task details String is not valid.
+     * @throws InvalidCommandException If Command input is in wrong format.
+     * @throws IOException If task details String is not valid.
      */
     public DeadLine(String[] taskDetails) throws InvalidCommandException, IOException {
         super(taskDetails[0]);
@@ -34,13 +34,13 @@ public class DeadLine extends Task {
     }
 
     /**
-     * Loading a DeadlineTask from file.
+     * Loading a Deadline Task from Storage file.
      *
-     * @param taskDetails string of Task Description.
-     * @param deadLineDetails string of Task Deadline.
-     * @param status completion status of loaded deadline task.
-     * @throws InvalidCommandException if file is corrupted with invalid tasks.
-     * @throws IOException if string from task is invalid.
+     * @param taskDetails String of Task Description.
+     * @param deadLineDetails String of Task Deadline.
+     * @param status Completion status of loaded deadline task.
+     * @throws InvalidCommandException If file is corrupted with invalid tasks.
+     * @throws IOException If string from task is invalid.
      */
     public DeadLine(String taskDetails, String deadLineDetails, boolean status) throws InvalidCommandException, IOException {
         super(taskDetails);

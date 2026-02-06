@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * Parser Class acts as a processing unit of user input commands, delegating them to respective handlers.
+ * Parser Class acts as a processing unit for user input commands, delegating them to respective handlers.
  */
 public class Parser {
     String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
@@ -33,10 +33,10 @@ public class Parser {
      *
      * @param input String input of user.
      * @param filePath Filepath of file for storage.
-     * @return output String of output.
-     * @throws InvalidCommandException if command is of not proper format
-     * @throws InvalidMarkingException if command is on empty task
-     * @throws IOException if File is not Found or File Error
+     * @return String The String representation of output.
+     * @throws InvalidCommandException If command is of not proper format.
+     * @throws InvalidMarkingException If command is on empty task.
+     * @throws IOException If File is not Found or File Error.
      */
     public String thinking(String input, Path filePath) throws InvalidCommandException,
             InvalidMarkingException, IOException {

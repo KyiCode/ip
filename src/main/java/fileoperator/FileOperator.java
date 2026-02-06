@@ -30,7 +30,6 @@ public class FileOperator {
         fw.close();
     }
 
-    // implement bug check
     /**
      * Updates the storage file after any edits to tasks already in task list.
      *

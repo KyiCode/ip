@@ -12,7 +12,7 @@ public class Task {
     private boolean done = false;
 
     /**
-     * Constructor of a Task object.
+     * Construct a task instance.
      *
      * @param taskName Task description.
      * @throws NullTaskDescriptionException Thrown when no description is given.
