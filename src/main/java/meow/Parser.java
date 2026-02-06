@@ -62,24 +62,20 @@ public class Parser {
         }
 
         switch (command) {
-        case "mark" -> {
+        case "mark":
             task = TaskList.markDone(stringHelper.getIndex());
             FileOperator.markOperation(filePath, task);
             return "Done: " + task.toString();
-        }
-        case "unmark" -> {
+        case "unmark":
             task = TaskList.markUndone(stringHelper.getIndex());
             FileOperator.markOperation(filePath, task);
             return "Unmarked: " + task.toString();
-        }
-        case "delete" -> {
+        case "delete":
             task = TaskList.delete(stringHelper.getIndex());
             FileOperator.delOperation(stringHelper.getIndex());
             return "Removed: " + task.toString();
-        }
-        case "find" -> {
+        case "find":
             return TaskList.find(stringHelper.getTaskDetails());
-        }
         }
 
         switch (command) {

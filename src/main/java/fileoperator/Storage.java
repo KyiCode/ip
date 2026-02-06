@@ -32,10 +32,13 @@ public class Storage {
         while (sc.hasNext()) {
             String text = sc.nextLine();
 
+
+            //Completion status not preserved when loading/loaded
             if (text.startsWith("[T]")) {
                 text = text.split("] ")[1];
                 Task task = new ToDo(text, 1);
             }
+
             if (text.startsWith("[D]")) {
                 text = text.split("] ")[1];
                 String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
