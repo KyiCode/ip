@@ -88,10 +88,18 @@ public class TaskList {
         return output.toString();
     }
 
+    /**
+     * returns the size of the list.
+     *
+     * @return Integer size.
+     */
     public static int getListSize() {
         return list.size();
     }
 
+    /**
+     * Outputs the string representation of all contents in the list.
+     */
     public static void getTaskList() {
         int count = 1;
         System.out.println("Tasks in List: ");
@@ -104,10 +112,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * returns the index of the specified task in the list.
+     *
+     * @param task Task to be queried.
+     * @return Integer index of task.
+     */
     public static int getTaskIndex(Task task) {
         return list.indexOf(task);
     }
 
-
+    /**
+     * for testing purposes only.
+     */
+    public static void reset() {
+        list = new ArrayList<>();
+    }
 
 }
