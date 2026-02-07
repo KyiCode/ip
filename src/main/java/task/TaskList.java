@@ -71,17 +71,17 @@ public class TaskList {
     /**
      * Find and return tasks that contain the given keyword.
      *
-     * @param keyWord String of keyword to search for.
+     * @param keyword String of keyword to search for.
      * @return String Representation of relevant tasks.
      */
-    public static String find(String keyWord) {
+    public static String find(String keyword) {
         StringBuilder output = new StringBuilder("No Task Found");
         boolean isFound = false;
         int count = 1;
 
         for (Task task : list) {
             String taskDetail = task.getTaskName();
-            if (taskDetail.contains(keyWord)) {
+            if (taskDetail.contains(keyword)) {
                 if (!isFound) {
                     output = new StringBuilder(String.valueOf(count) + task.toString() + "\n");
                     isFound = true;
