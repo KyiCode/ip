@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * DeadLine Class to represent Tasks with a Deadline.
  */
 public class DeadLine extends Task {
-    LocalDate deadline;
+    LocalDate deadLine;
 
     /**
      * Construct a DeadLine instance.
@@ -27,7 +27,7 @@ public class DeadLine extends Task {
         }
 
         try {
-            this.deadline = LocalDate.parse(taskDetails[1]);
+            this.deadLine = LocalDate.parse(taskDetails[1]);
         } catch (Exception e) {
             throw new InvalidDeadLineFormatException();
         }
@@ -44,7 +44,7 @@ public class DeadLine extends Task {
      */
     public DeadLine(String taskDetails, String deadLineDetails, boolean status) throws InvalidCommandException, IOException {
         super(taskDetails);
-        this.deadline = LocalDate.parse(deadLineDetails);
+        this.deadLine = LocalDate.parse(deadLineDetails);
         if (status) {
             this.setDone();
         }
@@ -57,7 +57,7 @@ public class DeadLine extends Task {
         if (this.getStatus()) {
             doneStatus = "[D][X] ";
         }
-        return doneStatus + this.getTaskName() + " || Deadline: " + deadline.toString();
+        return doneStatus + this.getTaskName() + " || Deadline: " + deadLine.toString();
     }
 }
 
