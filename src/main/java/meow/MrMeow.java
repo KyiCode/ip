@@ -14,43 +14,40 @@ import java.util.Scanner;
  * Main MrMeow class
  */
 public class MrMeow {
-    public static void main(String[] args)  {
-        Parser meow = new Parser();
-        Scanner sc = new Scanner(System.in);
+    Parser parser;
+    Path dataDir;
+    Path filePath;
 
-        Path dataDir = Paths.get("ip/data");
-        Path filePath = Paths.get("ip/data/meow.txt");
-
+    public MrMeow() {
+        parser = new Parser();
+        dataDir = Paths.get("ip/data");
+        filePath = Paths.get("ip/data/meow.txt");
         try {
             Files.createDirectories(dataDir);
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
+            Storage.load(filePath, parser);
         } catch (IOException e) {
             System.out.println("File exists, skipping...");
-        }
-
-        try {
-            Storage.load(filePath, meow);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Corrupted Data, Please Check!");
-            return;
-        }
-
-        while (sc.hasNext()) {
-            String text = sc.nextLine();
-            try {
-                text = meow.thinking(text, filePath);
-                System.out.println(text);
-            } catch (InvalidCommandException | InvalidMarkingException e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (IOException e) {
-                System.out.println("File error");
-            }
         }
     }
+
+    public String getResponse(String input) {
+        String output = null;
+        try {
+            output = parser.thinking(input, filePath);
+        } catch (InvalidCommandException | InvalidMarkingException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return "File error";
+        }
+        return output;
+    }
+
 }
 
 
