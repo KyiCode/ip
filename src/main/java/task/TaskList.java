@@ -105,18 +105,20 @@ public class TaskList {
     /**
      * Outputs the string representation of all contents in the list.
      */
-    public static void getTaskList() {
+    public static String getTaskList() {
         int count = 1;
-        System.out.println("Tasks in List: ");
+        StringBuilder output = new StringBuilder("Tasks in List: \n");
 
         if (list.isEmpty()) {
-            System.out.println("Nothing to see here...");
+            return "Nothing to see here...";
         }
 
         for (Task x : list) {
-            System.out.println(count + ". " + x.toString());
+            output.append(String.valueOf(count)).append(". ").append(x.toString()).append("\n");
             count++;
         }
+
+        return output.toString();
     }
 
     /**
