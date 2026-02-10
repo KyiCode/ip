@@ -58,7 +58,6 @@ public class FileOperator {
 
         Files.delete(filePath);
         Files.move(Paths.get("ip/data/temp.txt"), filePath);
-
         assert Storage.inFile(filePath, task) : "task not in storage file";
     }
 

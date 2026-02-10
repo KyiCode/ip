@@ -69,6 +69,16 @@ public class TaskList {
     }
 
     /**
+     * Check if task in task list.
+     *
+     * @param task task to find.
+     * @return true if task in list.
+     */
+    public static boolean contain(Task task) {
+        return list.contains(task);
+    }
+
+    /**
      * Find and return tasks that contain the given keyword.
      *
      * @param keyword String of keyword to search for.

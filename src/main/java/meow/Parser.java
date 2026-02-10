@@ -89,7 +89,7 @@ public class Parser {
         TaskList.add(task);
         FileOperator.append(filePath, task);
 
-        assert TaskList.find(task.toString()).contains(task.toString()) : "task not in task list or task not updated";
+        assert TaskList.contain(task) : "task not in task list or task not updated";
         assert Storage.inFile(filePath, task) : "task not in storage file";
 
         return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
