@@ -42,6 +42,8 @@ public class FileOperator {
         //Overwrite mode
         FileWriter fw = new FileWriter("ip/data/temp.txt");
 
+        assert task != null;
+
         int count = 0;
         while (sc.hasNext()) {
             String stringLine = sc.nextLine();
@@ -56,6 +58,8 @@ public class FileOperator {
 
         Files.delete(filePath);
         Files.move(Paths.get("ip/data/temp.txt"), filePath);
+
+        assert Storage.inFile(filePath, task) : "task not in storage file";
     }
 
     /**

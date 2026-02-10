@@ -4,10 +4,7 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
 import meow.Parser;
-import task.DeadLine;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import task.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +28,7 @@ public class Storage {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
             String text = sc.nextLine();
-            Task task;
+            Task task = null;
             if (text.startsWith("[T]")) {
                 boolean isDone = text.startsWith("[T][X]");
                 text = text.split("] ")[1];
@@ -58,7 +55,9 @@ public class Storage {
                 task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
             }
 
-
+            assert task != null;
+            assert TaskList.find(task.toString()).contains(task.toString()) : "task not in task list or task not updated";
+            assert Storage.inFile(filePath, task) : "task not in storage file";
 
         }
         sc.close();
