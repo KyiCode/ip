@@ -36,8 +36,7 @@ public class Storage {
                 boolean isDone = text.startsWith("[T][X]");
                 text = text.split("] ")[1];
                 Task task = new ToDo(text, isDone);
-            }
-            if (text.startsWith("[D]")) {
+            } else if (text.startsWith("[D]")) {
                 boolean isDone = text.startsWith("[D][X]");
                 text = text.split("] ")[1];
                 String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
@@ -45,8 +44,7 @@ public class Storage {
                     throw new NullDateException();
                 }
                 Task task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
-            }
-            if (text.startsWith("[E]")) {
+            } else if (text.startsWith("[E]")) {
                 boolean isDone = text.startsWith("[E][X]");
                 text = text.split("] ")[1];
                 String[] eventDetails = text.split(" \\|\\| From: ");
@@ -58,7 +56,10 @@ public class Storage {
                     throw new InvalidEventFormatException();
                 }
                 Task task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
+            } else {
+                throw new InvalidCommandException("File may be corrupted, check File!");
             }
+
         }
         sc.close();
     }
