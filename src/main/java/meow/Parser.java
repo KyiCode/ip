@@ -53,9 +53,8 @@ public class Parser {
         }
 
         if (command.equals("list")) {
-            TaskList.getTaskList();
+            return TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
-            return "";
         }
 
         if (!stringHelper.isValidCommandFormat()) {

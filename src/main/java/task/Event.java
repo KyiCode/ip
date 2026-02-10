@@ -32,6 +32,11 @@ public class Event extends Task {
         } catch (Exception e) {
             throw new InvalidEventFormatException();
         }
+
+        if (from.isAfter(to)) {
+            throw new InvalidEventFormatException("From date is after To Date!");
+        }
+
     }
 
     /**

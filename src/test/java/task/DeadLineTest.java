@@ -37,9 +37,11 @@ public class DeadLineTest {
                 () -> parser.thinking("deadline  ", tempFile));
     }
 
+
+    //technically not null date?
     @Test
     void deadLine_noDescriptionTwo_exceptionThrown() throws Exception {
-        assertThrows(InvalidDeadLineFormatException.class,
+        assertThrows(NullDateException.class,
                 () -> parser.thinking("deadline /by 2024.12.12  ", tempFile));
     }
 
