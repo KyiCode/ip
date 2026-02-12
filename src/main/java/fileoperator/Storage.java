@@ -31,11 +31,11 @@ public class Storage {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
             String text = sc.nextLine();
-
+            Task task = null;
             if (text.startsWith("[T]")) {
                 boolean isDone = text.startsWith("[T][X]");
                 text = text.split("] ")[1];
-                Task task = new ToDo(text, isDone);
+                task = new ToDo(text, isDone);
             } else if (text.startsWith("[D]")) {
                 boolean isDone = text.startsWith("[D][X]");
                 text = text.split("] ")[1];
@@ -43,7 +43,7 @@ public class Storage {
                 if (deadLineDetails.length != 2) {
                     throw new NullDateException();
                 }
-                Task task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
+                task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
             } else if (text.startsWith("[E]")) {
                 boolean isDone = text.startsWith("[E][X]");
                 text = text.split("] ")[1];
@@ -56,12 +56,37 @@ public class Storage {
                 if (eventDateTimeDetails.length != 2) {
                     throw new InvalidEventFormatException();
                 }
-                Task task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
+                task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
             } else {
                 throw new InvalidCommandException("File may be corrupted, check File!");
             }
 
+            assert task != null;
+            assert TaskList.contain(task) : "task not in task list or task not updated";
+            assert Storage.inFile(filePath, task) : "task not in storage file";
+
         }
         sc.close();
+    }
+
+    /**
+     * Finds the Task in storage file and return a boolean as result.
+     *
+     * @param filePath path of storage file.
+     * @param task task to look for.
+     * @return True if task exists in Storage file.
+     * @throws IOException if file cannot be found.
+     */
+    public static boolean inFile(Path filePath, Task task) throws IOException {
+        Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
+        boolean result = false;
+        while (sc.hasNext()) {
+            String text = sc.nextLine();
+            if (text.contains(task.toString())) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

@@ -4,6 +4,7 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidCommandFormatException;
 import exceptions.InvalidMarkingException;
 import fileoperator.FileOperator;
+import fileoperator.Storage;
 import helper.StringHelper;
 import task.DeadLine;
 import task.Event;
@@ -89,6 +90,9 @@ public class Parser {
 
         TaskList.add(task);
         FileOperator.append(filePath, task);
+
+        assert TaskList.contain(task) : "task not in task list or task not updated";
+        assert Storage.inFile(filePath, task) : "task not in storage file";
 
         return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
     }
