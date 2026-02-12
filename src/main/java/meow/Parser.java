@@ -21,6 +21,8 @@ import java.nio.file.Path;
 public class Parser {
     String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
     String outro = "Bye. Hope to see you again soon!\n";
+    String byeCommand = "bye";
+    String listCommand = "list";
 
     /**
      * Constructs a Parser instance, and Prints the Introduction text of MrMeow.
@@ -45,15 +47,15 @@ public class Parser {
         String command = stringHelper.getCommand();
         Task task;
 
-        if (input.equals(" ") || input.isEmpty()) {
+        if (input.trim().isEmpty()) {
             return "";
         }
 
-        if (command.equals("bye")) {
+        if (command.equals(byeCommand)) {
             return outro;
         }
 
-        if (command.equals("list")) {
+        if (command.equals(listCommand)) {
             return TaskList.getTaskList();
             //FileOperator.iterateList(filePath);
         }

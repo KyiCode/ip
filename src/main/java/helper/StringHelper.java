@@ -94,9 +94,9 @@ public class StringHelper {
      * @return true If Input is in correct format.
      */
     public boolean isValidEventCommandFormat() {
-        boolean a = string.split(this.getCommand())[1].split(" /from ").length == 2;
-        boolean b = string.split(this.getCommand())[1].split(" /to ").length == 2;
-        return a && b;
+        boolean isValidFromFormat = string.split(this.getCommand())[1].split(" /from ").length == 2;
+        boolean isValidToFormat = string.split(this.getCommand())[1].split(" /to ").length == 2;
+        return isValidFromFormat && isValidToFormat;
     }
 
 }

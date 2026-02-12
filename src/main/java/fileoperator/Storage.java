@@ -4,7 +4,11 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
 import meow.Parser;
-import task.*;
+import task.DeadLine;
+import task.Event;
+import task.Task;
+import task.ToDo;
+import task.TaskList;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,11 +52,14 @@ public class Storage {
                 if (eventDetails.length != 2) {
                     throw new InvalidEventFormatException();
                 }
+
                 String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
                 if (eventDateTimeDetails.length != 2) {
                     throw new InvalidEventFormatException();
                 }
                 task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
+            } else {
+                throw new InvalidCommandException("File may be corrupted, check File!");
             }
 
             assert task != null;
