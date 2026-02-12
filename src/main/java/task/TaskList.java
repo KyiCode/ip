@@ -51,6 +51,10 @@ public class TaskList {
         return task;
     }
 
+    public static boolean contain(Task task) {
+        return list.contains(task);
+    }
+
     /**
      * Delete the task of index in the task list.
      *

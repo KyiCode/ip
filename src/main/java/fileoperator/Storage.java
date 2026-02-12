@@ -62,7 +62,6 @@ public class Storage {
                 throw new InvalidCommandException("File may be corrupted, check File!");
             }
 
-            assert task != null;
             assert TaskList.contain(task) : "task not in task list or task not updated";
             assert Storage.inFile(filePath, task) : "task not in storage file";
 
