@@ -27,7 +27,7 @@ public class TaskList {
      * @throws InvalidMarkingException If marking operation on invalid task index.
      */
     public static Task markDone(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) {
+        if (isValidIndex(taskIndex)) {
             throw new InvalidMarkingException();
         }
         Task task = list.get(taskIndex - 1);
@@ -43,7 +43,7 @@ public class TaskList {
      * @throws InvalidMarkingException If marking operation on invalid task index.
      */
     public static Task markUndone(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) {
+        if (isValidIndex(taskIndex)) {
             throw new InvalidMarkingException();
         }
         Task task = list.get(taskIndex - 1);
@@ -59,13 +59,23 @@ public class TaskList {
      * @throws InvalidMarkingException If delete operation on invalid task index.
      */
     public static Task delete(int taskIndex) throws InvalidMarkingException {
-        if (taskIndex > list.size()) {
+        if (isValidIndex(taskIndex)) {
             throw new InvalidMarkingException();
         }
         Task task = list.get(taskIndex - 1);
         list.remove(taskIndex - 1);
         return task;
 
+    }
+
+    /**
+     * Checks if the index input is valid for the current task list.
+     *
+     * @param index Integer input.
+     * @return true if index is valid.
+     */
+    public static boolean isValidIndex(int index) {
+        return index >= 0 && index <= list.size();
     }
 
     /**

@@ -36,15 +36,15 @@ public class DeadLine extends Task {
     /**
      * Loading a Deadline Task from Storage file.
      *
-     * @param taskDetails String of Task Description.
-     * @param deadLineDetails String of Task Deadline.
+     * @param taskName String of Task Description.
+     * @param deadLineDate String of Task Deadline.
      * @param status Completion status of loaded deadline task.
      * @throws InvalidCommandException If file is corrupted with invalid tasks.
      * @throws IOException If string from task is invalid.
      */
-    public DeadLine(String taskDetails, String deadLineDetails, boolean status) throws InvalidCommandException, IOException {
-        super(taskDetails);
-        this.deadLine = LocalDate.parse(deadLineDetails);
+    public DeadLine(String taskName, String deadLineDate, boolean status) throws InvalidCommandException, IOException {
+        super(taskName);
+        this.deadLine = LocalDate.parse(deadLineDate);
         if (status) {
             this.setDone();
         }

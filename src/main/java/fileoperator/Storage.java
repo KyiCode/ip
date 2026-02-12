@@ -51,6 +51,7 @@ public class Storage {
                 if (eventDetails.length != 2) {
                     throw new InvalidEventFormatException();
                 }
+
                 String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
                 if (eventDateTimeDetails.length != 2) {
                     throw new InvalidEventFormatException();
