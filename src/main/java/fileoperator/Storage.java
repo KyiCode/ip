@@ -87,6 +87,7 @@ public class Storage {
                 break;
             }
         }
+        sc.close();
         return result;
     }
 }
