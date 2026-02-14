@@ -24,6 +24,9 @@ public class Parser {
     String byeCommand = "bye";
     String listCommand = "list";
 
+//    Temporary
+    Path filePath;
+
     /**
      * Constructs a Parser instance, and Prints the Introduction text of MrMeow.
      */
@@ -47,6 +50,9 @@ public class Parser {
         String command = stringHelper.getCommand();
         Task task;
 
+//        temporary var, change to constructor later
+        this.filePath = filePath;
+
         if (input.trim().isEmpty()) {
             return "";
         }
@@ -65,6 +71,10 @@ public class Parser {
         }
 
         switch (command) {
+        case "bye":
+            return outro;
+        case "list":
+            return TaskList.getTaskList();
         case "mark":
             task = TaskList.markDone(stringHelper.getIndex());
             FileOperator.markOperation(filePath, task);
@@ -81,19 +91,26 @@ public class Parser {
             return TaskList.find(stringHelper.getTaskDetails());
         }
 
-        task = switch (command) {
+        task = createEvent(command, stringHelper);
+
+        TaskList.add(task);
+        FileOperator.append(filePath, task);
+
+        return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
+    }
+
+
+    public Task createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
+        Task task = switch (command) {
             case "todo" -> new ToDo(stringHelper.getTaskDetails());
             case "deadline" -> new DeadLine(stringHelper.getDeadLineDetails());
             case "event" -> new Event(stringHelper.getEventDetails());
             default -> throw new InvalidCommandException();
         };
 
-        TaskList.add(task);
-        FileOperator.append(filePath, task);
-
         assert TaskList.contain(task) : "task not in task list or task not updated";
         assert Storage.inFile(filePath, task) : "task not in storage file";
 
-        return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
+        return task;
     }
 }
