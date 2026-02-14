@@ -3,6 +3,8 @@ package task;
 import exceptions.InvalidMarkingException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * TaskList class to represent a list of tasks.
@@ -144,6 +146,35 @@ public class TaskList {
     public static int getTaskIndex(Task task) {
         return list.indexOf(task);
     }
+
+
+    public static String getDupes() {
+        HashMap<String, Integer> map = new HashMap<>();
+        StringBuilder output = new StringBuilder("No dupes \n");
+        HashSet<Integer> set = new HashSet<>();
+
+        int count = 1;
+        for (Task x : list) {
+            if (map.containsKey(x.getTaskName())) {
+                set.add(count);
+                set.add(map.get(x.getTaskName()));
+            } else {
+                map.put(x.getTaskName(), count);
+            }
+            count += 1;
+        }
+
+        if (!set.isEmpty()) {
+            output = new StringBuilder("Dupes: ");
+            for (int x : set) {
+                output.append(String.valueOf(x)).append(" ");
+            }
+            output.append("\n");
+        }
+
+        return output.toString();
+    }
+
 
     /**
      * Reset task list, For testing purposes only.

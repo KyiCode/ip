@@ -68,6 +68,9 @@ public class Parser {
         return output;
     }
 
+
+
+
     public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException {
         if (command.equals(byeCommand)) {
             output = outro;
@@ -76,6 +79,11 @@ public class Parser {
 
         if (command.equals(listCommand)) {
             output = TaskList.getTaskList();
+            return true;
+        }
+
+        if (command.equals("dupes")) {
+            output = TaskList.getDupes();
             return true;
         }
 
