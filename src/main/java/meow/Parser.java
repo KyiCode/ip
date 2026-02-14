@@ -14,6 +14,8 @@ import task.ToDo;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Parser Class acts as a processing unit for user input commands, delegating them to respective handlers.
@@ -50,8 +52,7 @@ public class Parser {
         StringHelper stringHelper = new StringHelper(input);
         String command = stringHelper.getCommand();
         Task task;
-
-
+        output = "";
 
         if (input.trim().isEmpty()) {
             return "";
@@ -65,13 +66,23 @@ public class Parser {
             createEvent(command, stringHelper);
         }
 
-        return output;
+        String duplicateTaskResult = checkDupe();
+
+        return output + duplicateTaskResult;
+    }
+
+    public String checkDupe() throws IOException {
+        ArrayList<Task> duplicateTasks = TaskList.getDupes();
+        if (!duplicateTasks.isEmpty()) {
+            return "\nDuplicate Tasks present, removeDupe to execute removal";
+        }
+        return "";
     }
 
 
 
 
-    public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException {
+    public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException, IOException {
         if (command.equals(byeCommand)) {
             output = outro;
             return true;
@@ -83,7 +94,15 @@ public class Parser {
         }
 
         if (command.equals("dupes")) {
-            output = TaskList.getDupes();
+            output = TaskList.getConflict();
+            return true;
+        }
+
+        if (command.equals("removedupe")) {
+            ArrayList<Task> duplicateTasks = TaskList.getDupes();
+            TaskList.removeDupes(duplicateTasks);
+            FileOperator.overWriteLoad(filePath);
+            output = "Removed!";
             return true;
         }
 

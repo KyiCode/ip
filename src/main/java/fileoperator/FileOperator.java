@@ -102,4 +102,12 @@ public class FileOperator {
         Files.move(Paths.get("ip/data/temp.txt"), Paths.get("ip/data/meow.txt"));
     }
 
+    public static void overWriteLoad(Path filePath) throws IOException {
+        FileWriter fw = new FileWriter(String.valueOf(filePath));
+        fw.close();
+        for (Task x : TaskList.getListCopy()) {
+            append(filePath, x);
+        }
+    }
+
 }
