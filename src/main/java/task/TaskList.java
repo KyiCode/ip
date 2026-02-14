@@ -21,6 +21,12 @@ public class TaskList {
         list.add(task);
     }
 
+    public static ArrayList<Task> getListCopy() {
+        return new ArrayList<>(list);
+    }
+
+
+
     /**
      * Mark the task at given index as done.
      *
@@ -148,7 +154,27 @@ public class TaskList {
     }
 
 
-    public static String getDupes() {
+    public static ArrayList<Task> getDupes() {
+        HashSet<String> set = new HashSet<>();
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task x : list) {
+            String taskString = x.toString();
+
+            if (set.contains(taskString)) {
+                result.add(x);
+            }
+            set.add(taskString);
+        }
+        return result;
+    }
+
+    public static void removeDupes(ArrayList<Task> dupeTasks) {
+        for (Task x : dupeTasks) {
+            list.remove(x);
+        }
+    }
+
+    public static String getConflict() {
         HashMap<String, Integer> map = new HashMap<>();
         StringBuilder output = new StringBuilder("No dupes \n");
         HashSet<Integer> set = new HashSet<>();
