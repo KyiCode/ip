@@ -19,9 +19,9 @@ public class MrMeow {
     Path filePath;
 
     public MrMeow() {
-        parser = new Parser();
         dataDir = Paths.get("ip/data");
         filePath = Paths.get("ip/data/meow.txt");
+        parser = new Parser(filePath);
         try {
             Files.createDirectories(dataDir);
             if (!Files.exists(filePath)) {
@@ -39,7 +39,7 @@ public class MrMeow {
     public String getResponse(String input) {
         String output = null;
         try {
-            output = parser.thinking(input, filePath);
+            output = parser.thinking(input);
         } catch (InvalidCommandException | InvalidMarkingException e) {
             return e.getMessage();
         } catch (IOException e) {

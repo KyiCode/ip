@@ -21,8 +21,8 @@ public class EventTest {
 
     @BeforeEach
     void setUp() throws IOException, IOException {
-        parser = new Parser();
         tempFile = Files.createTempFile("meow-test", ".txt");
+        parser = new Parser(tempFile);
         Files.writeString(tempFile, "");
     }
 
@@ -33,49 +33,49 @@ public class EventTest {
 
     @Test
     void event_noDescription_exceptionThrown() throws Exception {
-        assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("event  ", tempFile));
+        assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("event  "));
     }
 
     @Test
     void event_inValidFormat_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w  ", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w  "));
     }
 
     @Test
     void event_inValidFormatTwo_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from  ", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from  "));
     }
 
     @Test
     void event_inValidFormatThree_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to    ", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to    "));
     }
 
     @Test
     void event_inValidFormatFour_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-12-12 /to 2025-1-2   ", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-12-12 /to 2025-1-2   "));
     }
 
     @Test
     void event_trailingSpaces_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20   ", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20   "));
     }
 
     //throws wrong exception
     @Test
     void event_inValidDate_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20"));
     }
 
     //should throw an exception
     @Test
     void event_fromDateLaterThanToDate_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-12-12 /to 2024-10-20", tempFile));
+        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-12-12 /to 2024-10-20"));
     }
 
     @Test
     void event_addEvent_success() throws Exception {
-        String result = parser.thinking("event test /from 2024-11-12 /to 2024-12-22", tempFile);
+        String result = parser.thinking("event test /from 2024-11-12 /to 2024-12-22");
 
         assertTrue(result.contains("test"));
         assertTrue(result.contains("[E][ ]"));

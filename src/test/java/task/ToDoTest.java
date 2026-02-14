@@ -18,8 +18,8 @@ public class ToDoTest {
 
     @BeforeEach
     void setUp() throws IOException, IOException {
-        parser = new Parser();
         tempFile = Files.createTempFile("meow-test", ".txt");
+        parser = new Parser(tempFile);
         Files.writeString(tempFile, "");
     }
 
@@ -30,12 +30,12 @@ public class ToDoTest {
 
     @Test
     void thinking_addTodo_no_description() throws Exception {
-        assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("todo  ", tempFile));
+        assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("todo  "));
     }
 
     @Test
     void thinking_addTodo_success() throws Exception {
-        String result = parser.thinking("todo read book", tempFile);
+        String result = parser.thinking("todo read book");
 
         assertTrue(result.contains("Added:"));
         assertTrue(result.contains("read book"));

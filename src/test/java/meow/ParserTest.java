@@ -18,9 +18,9 @@ public class ParserTest {
 
     @BeforeEach
     void setUp() throws IOException, IOException {
-        parser = new Parser();
         TaskList.reset();
         tempFile = Files.createTempFile("meow-test", ".txt");
+        parser = new Parser(tempFile);
         Files.writeString(tempFile, "");
     }
 
@@ -31,20 +31,20 @@ public class ParserTest {
 
     @Test
     void thinking_emptyInput_returnsEmptyString() throws Exception {
-        String result = parser.thinking("", tempFile);
+        String result = parser.thinking("");
         assertEquals("", result);
     }
 
     @Test
     void markTest_Task_success() throws Exception {
-        parser.thinking("todo test1", tempFile);
-        parser.thinking("todo test2", tempFile);
-        String result = parser.thinking("mark 1", tempFile);
+        parser.thinking("todo test1");
+        parser.thinking("todo test2");
+        String result = parser.thinking("mark 1");
 
         assertTrue(result.contains("[X]"));
         assertTrue(result.contains("test1"));
 
-        result = parser.thinking("mark 2", tempFile);
+        result = parser.thinking("mark 2");
 
         assertTrue(result.contains("[X]"));
         assertTrue(result.contains("test2"));
@@ -52,16 +52,16 @@ public class ParserTest {
 
     @Test
     void unmarkTest_task_success() throws Exception {
-        parser.thinking("todo test1", tempFile);
-        parser.thinking("todo test2", tempFile);
-        String result = parser.thinking("mark 1", tempFile);
-        result = parser.thinking("unmark 1", tempFile);
+        parser.thinking("todo test1");
+        parser.thinking("todo test2");
+        String result = parser.thinking("mark 1");
+        result = parser.thinking("unmark 1");
 
         assertFalse(result.contains("[X]"));
         assertTrue(result.contains("test1"));
 
-        result = parser.thinking("mark 2", tempFile);
-        result = parser.thinking("unmark 2", tempFile);
+        result = parser.thinking("mark 2");
+        result = parser.thinking("unmark 2");
 
         assertFalse(result.contains("[X]"));
         assertTrue(result.contains("test2"));
@@ -69,14 +69,14 @@ public class ParserTest {
 
     @Test
     void list_test_success() throws Exception {
-        parser.thinking("todo test1", tempFile);
-        parser.thinking("todo test2", tempFile);
-        parser.thinking("todo test3", tempFile);
+        parser.thinking("todo test1");
+        parser.thinking("todo test2");
+        parser.thinking("todo test3");
 
 
-        String result1 = parser.thinking("find test1", tempFile);
-        String result2 = parser.thinking("find test2", tempFile);
-        String result3 = parser.thinking("find test3", tempFile);
+        String result1 = parser.thinking("find test1");
+        String result2 = parser.thinking("find test2");
+        String result3 = parser.thinking("find test3");
 
         assertTrue(result1.contains("test1"));
         assertTrue(result2.contains("test2"));
@@ -85,11 +85,11 @@ public class ParserTest {
 
     @Test
     void delete_success() throws Exception {
-        parser.thinking("todo test1", tempFile);
-        parser.thinking("todo test2", tempFile);
-        parser.thinking("todo test3", tempFile);
-        parser.thinking("delete 2", tempFile);
-        String result = parser.thinking("find test2", tempFile);
+        parser.thinking("todo test1");
+        parser.thinking("todo test2");
+        parser.thinking("todo test3");
+        parser.thinking("delete 2");
+        String result = parser.thinking("find test2");
 
         assertTrue(result.contains("No Task Found"));
     }
@@ -98,7 +98,7 @@ public class ParserTest {
     void thinking_markInvalidIndex_throwsException() {
         assertThrows(
                 InvalidMarkingException.class,
-                () -> parser.thinking("mark 1", tempFile)
+                () -> parser.thinking("mark 1")
         );
     }
 }

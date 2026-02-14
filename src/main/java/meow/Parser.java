@@ -23,6 +23,7 @@ public class Parser {
     String outro = "Bye. Hope to see you again soon!\n";
     String byeCommand = "bye";
     String listCommand = "list";
+    String output;
 
 //    Temporary
     Path filePath;
@@ -30,7 +31,8 @@ public class Parser {
     /**
      * Constructs a Parser instance, and Prints the Introduction text of MrMeow.
      */
-    public Parser() {
+    public Parser(Path filePath) {
+        this.filePath = filePath;
         System.out.println(intro);
     }
 
@@ -38,69 +40,80 @@ public class Parser {
      * Processes the String Input and propagate the command.
      *
      * @param input String input of user.
-     * @param filePath Filepath of file for storage.
      * @return String The String representation of output.
      * @throws InvalidCommandException If command is of not proper format.
      * @throws InvalidMarkingException If command is on empty task.
      * @throws IOException If File is not Found or File Error.
      */
-    public String thinking(String input, Path filePath) throws InvalidCommandException,
+    public String thinking(String input) throws InvalidCommandException,
             InvalidMarkingException, IOException {
         StringHelper stringHelper = new StringHelper(input);
         String command = stringHelper.getCommand();
         Task task;
 
-//        temporary var, change to constructor later
-        this.filePath = filePath;
+
 
         if (input.trim().isEmpty()) {
             return "";
         }
 
+        boolean isSingleInput = executeSingleInput(command, stringHelper);
+        boolean isIndexInput = executeIndexCommand(command, stringHelper);
+        boolean isEventInput = !isSingleInput && !isIndexInput;
+
+        if (isEventInput) {
+            createEvent(command, stringHelper);
+        }
+
+        return output;
+    }
+
+    public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException {
         if (command.equals(byeCommand)) {
-            return outro;
+            output = outro;
+            return true;
         }
 
         if (command.equals(listCommand)) {
-            return TaskList.getTaskList();
-            //FileOperator.iterateList(filePath);
+            output = TaskList.getTaskList();
+            return true;
         }
 
         if (!stringHelper.isValidCommandFormat()) {
             throw new InvalidCommandFormatException();
         }
 
-        switch (command) {
-        case "bye":
-            return outro;
-        case "list":
-            return TaskList.getTaskList();
-        case "mark":
-            task = TaskList.markDone(stringHelper.getIndex());
-            FileOperator.markOperation(filePath, task);
-            return "Done: " + task.toString();
-        case "unmark":
-            task = TaskList.markUndone(stringHelper.getIndex());
-            FileOperator.markOperation(filePath, task);
-            return "Unmarked: " + task.toString();
-        case "delete":
-            task = TaskList.delete(stringHelper.getIndex());
-            FileOperator.delOperation(stringHelper.getIndex());
-            return "Removed: " + task.toString();
-        case "find":
-            return TaskList.find(stringHelper.getTaskDetails());
-        }
-
-        task = createEvent(command, stringHelper);
-
-        TaskList.add(task);
-        FileOperator.append(filePath, task);
-
-        return "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
+        return false;
     }
 
 
-    public Task createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
+    public boolean executeIndexCommand(String command, StringHelper stringHelper) throws InvalidMarkingException, IOException {
+        Task task;
+        switch (command) {
+            case "mark":
+                task = TaskList.markDone(stringHelper.getIndex());
+                FileOperator.markOperation(filePath, task);
+                output = "Done: " + task.toString();
+                return true;
+            case "unmark":
+                task = TaskList.markUndone(stringHelper.getIndex());
+                FileOperator.markOperation(filePath, task);
+                output = "Unmarked: " + task.toString();
+                return true;
+            case "delete":
+                task = TaskList.delete(stringHelper.getIndex());
+                FileOperator.delOperation(stringHelper.getIndex());
+                output = "Removed: " + task.toString();
+                return true;
+            case "find":
+                output = TaskList.find(stringHelper.getTaskDetails());
+                return true;
+        }
+        return false;
+    }
+
+
+    public boolean createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
         Task task = switch (command) {
             case "todo" -> new ToDo(stringHelper.getTaskDetails());
             case "deadline" -> new DeadLine(stringHelper.getDeadLineDetails());
@@ -108,9 +121,13 @@ public class Parser {
             default -> throw new InvalidCommandException();
         };
 
+        TaskList.add(task);
+        FileOperator.append(filePath, task);
+
         assert TaskList.contain(task) : "task not in task list or task not updated";
         assert Storage.inFile(filePath, task) : "task not in storage file";
 
-        return task;
+        output = "Added: " + task.toString() + "\n" + TaskList.getListSize() + " tasks in list.";
+        return true;
     }
 }
