@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Task {
     private String taskName;
-    private boolean done = false;
+    private boolean isDone = false;
 
     /**
      * Construct a task instance.
@@ -29,14 +29,14 @@ public class Task {
      * Sets task as completed.
      */
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Sets task as not completed.
      */
     public void setNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Task {
      * @return True if task is completed.
      */
     public boolean getStatus() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Task {
     @Override
     public String toString() {
         String doneStatus = "[T][ ] ";
-        if (this.done) {
+        if (this.isDone) {
             doneStatus = "[T][X] ";
         }
         return doneStatus + this.taskName;

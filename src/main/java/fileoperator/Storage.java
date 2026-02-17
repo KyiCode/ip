@@ -79,15 +79,15 @@ public class Storage {
      */
     public static boolean inFile(Path filePath, Task task) throws IOException {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
-        boolean result = false;
+        boolean hasResult = false;
         while (sc.hasNext()) {
             String text = sc.nextLine();
             if (text.contains(task.toString())) {
-                result = true;
+                hasResult = true;
                 break;
             }
         }
         sc.close();
-        return result;
+        return hasResult;
     }
 }
