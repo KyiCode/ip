@@ -110,7 +110,8 @@ public class StringHelper {
         return isDoneDeadline || isDoneEvent || isDoneTask;
     }
 
-    public String[] getLoadedDeadlineDetails() {
-
+    public String getLoadedTaskDetails(String text) {
+        return text.split("] ")[1];
     }
+
 }
