@@ -99,4 +99,18 @@ public class StringHelper {
         return isValidFromFormat && isValidToFormat;
     }
 
+
+    /**
+     * Used by Storage, to check loaded Tasks' completion status.
+     *
+     * @param text String line representation of task in storage file.
+     * @return true if loaded task is completed.
+     */
+    public static boolean checkLoadedTaskStatus(String text) {
+        boolean isCompletedToDo = text.startsWith("[T][X]");
+        boolean isCompletedDeadline = text.startsWith("[D][X]");
+        boolean isCompletedEvent = text.startsWith("[E][X]");
+        return isCompletedToDo || isCompletedDeadline || isCompletedEvent;
+    }
+
 }

@@ -3,6 +3,7 @@ package fileoperator;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
+import helper.StringHelper;
 import meow.Parser;
 import task.DeadLine;
 import task.Event;
@@ -33,14 +34,13 @@ public class Storage {
         while (sc.hasNext()) {
             String text = sc.nextLine();
             Task task = null;
+            boolean isDone = StringHelper.checkLoadedTaskStatus(text);
+
             if (text.startsWith("[T]")) {
-                boolean isDone = text.startsWith("[T][X]");
                 task = loadToDo(text, isDone);
             } else if (text.startsWith("[D]")) {
-                boolean isDone = text.startsWith("[D][X]");
                 task = loadDeadLine(text, isDone);
             } else if (text.startsWith("[E]")) {
-                boolean isDone = text.startsWith("[E][X]");
                 task = loadEvent(text, isDone);
             } else {
                 throw new InvalidCommandException("File may be corrupted, check File!");
