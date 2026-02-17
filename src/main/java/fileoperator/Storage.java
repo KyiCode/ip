@@ -32,34 +32,62 @@ public class Storage {
     public static void load(Path filePath, Parser brain) throws IOException, InvalidCommandException {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
-            String text = sc.nextLine();
-            Task task = null;
-            boolean isDone = StringHelper.checkLoadedTaskStatus(text);
+            StringHelper stringHelper = new StringHelper(sc.nextLine());
+            boolean isDone = stringHelper.checkLoadedTaskStatus();
 
-            if (text.startsWith("[T]")) {
-                task = loadToDo(text, isDone);
-            } else if (text.startsWith("[D]")) {
-                task = loadDeadLine(text, isDone);
-            } else if (text.startsWith("[E]")) {
-                task = loadEvent(text, isDone);
-            } else {
-                throw new InvalidCommandException("File may be corrupted, check File!");
-            }
+            Task task = loadTask(stringHelper, isDone);
 
             assert TaskList.contain(task) : "task not in task list or task not updated";
             assert Storage.inFile(filePath, task) : "task not in storage file";
-
         }
         sc.close();
     }
 
+    /**
+     * To handle the logic of separating and calling different Task constructors.
+     *
+     * @param stringHelper String Helper of StorageFile string line.
+     * @param isDone Completion status of task.
+     * @return the Task instance created.
+     * @throws InvalidCommandException if string representation of task is invalid.
+     * @throws IOException if ToDo task is invalid.
+     */
+    public static Task loadTask(StringHelper stringHelper, boolean isDone) throws InvalidCommandException, IOException {
+        String taskDetails = stringHelper.getLoadedTaskDetails();
+        if (stringHelper.isLoadedTodo()) {
+            return loadToDo(taskDetails, isDone);
+        } else if (stringHelper.isLoadedDeadline()) {
+            return loadDeadLine(taskDetails, isDone);
+        } else if (stringHelper.isLoadedEvent()) {
+            return loadEvent(taskDetails, isDone);
+        } else {
+            throw new InvalidCommandException("File may be corrupted, check File!");
+        }
+    }
+
+    /**
+     * handler to load a Todo Task.
+     *
+     * @param taskDetails task description.
+     * @param isDone completion status of task.
+     * @return a Todo task instance.
+     * @throws InvalidCommandException if string representation of task is invalid.
+     * @throws IOException if ToDo task is invalid.
+     */
     public static Task loadToDo(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
-        taskDetails = taskDetails.split("] ")[1];
         return new ToDo(taskDetails, isDone);
     }
 
+    /**
+     * handler to load deadline.
+     *
+     * @param taskDetails task description.
+     * @param isDone completion status of task.
+     * @return a Deadline instance.
+     * @throws InvalidCommandException if string representation of task is invalid.
+     * @throws IOException if deadline is invalid.
+     */
     public static Task loadDeadLine(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
-        taskDetails = taskDetails.split("] ")[1];
         String[] deadLineDetails = taskDetails.split(" \\|\\| Deadline: ");
         if (deadLineDetails.length != 2) {
             throw new NullDateException();
@@ -67,9 +95,16 @@ public class Storage {
         return new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
     }
 
-
+    /**
+     * handler to load Event.
+     *
+     * @param taskDetails task description.
+     * @param isDone completion status of task.
+     * @return an Event instance.
+     * @throws InvalidCommandException if string representation of task is invalid.
+     * @throws IOException if event is invalid.
+     */
     public static Task loadEvent (String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
-        taskDetails = taskDetails.split("] ")[1];
         String[] eventDetails = taskDetails.split(" \\|\\| From: ");
         if (eventDetails.length != 2) {
             throw new InvalidEventFormatException();
