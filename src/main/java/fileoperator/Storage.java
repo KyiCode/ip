@@ -35,29 +35,13 @@ public class Storage {
             Task task = null;
             if (text.startsWith("[T]")) {
                 boolean isDone = text.startsWith("[T][X]");
-                text = text.split("] ")[1];
-                task = new ToDo(text, isDone);
+                task = loadToDo(text, isDone);
             } else if (text.startsWith("[D]")) {
                 boolean isDone = text.startsWith("[D][X]");
-                text = text.split("] ")[1];
-                String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
-                if (deadLineDetails.length != 2) {
-                    throw new NullDateException();
-                }
-                task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
+                task = loadDeadLine(text, isDone);
             } else if (text.startsWith("[E]")) {
                 boolean isDone = text.startsWith("[E][X]");
-                text = text.split("] ")[1];
-                String[] eventDetails = text.split(" \\|\\| From: ");
-                if (eventDetails.length != 2) {
-                    throw new InvalidEventFormatException();
-                }
-
-                String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
-                if (eventDateTimeDetails.length != 2) {
-                    throw new InvalidEventFormatException();
-                }
-                task = new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
+                task = loadEvent(text, isDone);
             } else {
                 throw new InvalidCommandException("File may be corrupted, check File!");
             }
@@ -67,6 +51,35 @@ public class Storage {
 
         }
         sc.close();
+    }
+
+    public static Task loadToDo(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
+        taskDetails = taskDetails.split("] ")[1];
+        return new ToDo(taskDetails, isDone);
+    }
+
+    public static Task loadDeadLine(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
+        taskDetails = taskDetails.split("] ")[1];
+        String[] deadLineDetails = taskDetails.split(" \\|\\| Deadline: ");
+        if (deadLineDetails.length != 2) {
+            throw new NullDateException();
+        }
+        return new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
+    }
+
+
+    public static Task loadEvent (String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
+        taskDetails = taskDetails.split("] ")[1];
+        String[] eventDetails = taskDetails.split(" \\|\\| From: ");
+        if (eventDetails.length != 2) {
+            throw new InvalidEventFormatException();
+        }
+
+        String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
+        if (eventDateTimeDetails.length != 2) {
+            throw new InvalidEventFormatException();
+        }
+        return new Event(eventDetails[0], eventDateTimeDetails[0], eventDateTimeDetails[1], isDone);
     }
 
     /**
