@@ -99,4 +99,18 @@ public class StringHelper {
         return isValidFromFormat && isValidToFormat;
     }
 
+
+
+    //load function below
+
+    public boolean getCompletionStatus() {
+        boolean isDoneTask = string.startsWith("[T][X]");
+        boolean isDoneDeadline = string.startsWith("[D][X]");
+        boolean isDoneEvent = string.startsWith("[E][X]");
+        return isDoneDeadline || isDoneEvent || isDoneTask;
+    }
+
+    public String[] getLoadedDeadlineDetails() {
+
+    }
 }

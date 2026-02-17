@@ -3,6 +3,7 @@ package fileoperator;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
+import helper.StringHelper;
 import meow.Parser;
 import task.DeadLine;
 import task.Event;
@@ -32,13 +33,13 @@ public class Storage {
         Scanner sc = new Scanner(new FileReader(String.valueOf(filePath)));
         while (sc.hasNext()) {
             String text = sc.nextLine();
+            StringHelper stringHelper = new StringHelper(text);
             Task task = null;
+            boolean isDone = stringHelper.getCompletionStatus();
             if (text.startsWith("[T]")) {
-                boolean isDone = text.startsWith("[T][X]");
                 text = text.split("] ")[1];
                 task = new ToDo(text, isDone);
             } else if (text.startsWith("[D]")) {
-                boolean isDone = text.startsWith("[D][X]");
                 text = text.split("] ")[1];
                 String[] deadLineDetails = text.split(" \\|\\| Deadline: ");
                 if (deadLineDetails.length != 2) {
@@ -46,7 +47,6 @@ public class Storage {
                 }
                 task = new DeadLine(deadLineDetails[0], deadLineDetails[1], isDone);
             } else if (text.startsWith("[E]")) {
-                boolean isDone = text.startsWith("[E][X]");
                 text = text.split("] ")[1];
                 String[] eventDetails = text.split(" \\|\\| From: ");
                 if (eventDetails.length != 2) {
@@ -68,6 +68,11 @@ public class Storage {
         }
         sc.close();
     }
+
+    public Task loadEvent() {
+        return;
+    }
+
 
     /**
      * Finds the Task in storage file and return a boolean as result.

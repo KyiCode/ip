@@ -63,7 +63,7 @@ public class Parser {
         boolean isEventInput = !isSingleInput && !isIndexInput;
 
         if (isEventInput) {
-            createEvent(command, stringHelper);
+            createTask(command, stringHelper);
         }
 
         String duplicateTaskResult = checkDupe();
@@ -140,7 +140,7 @@ public class Parser {
     }
 
 
-    public boolean createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
+    public boolean createTask(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
         Task task = switch (command) {
             case "todo" -> new ToDo(stringHelper.getTaskDetails());
             case "deadline" -> new DeadLine(stringHelper.getDeadLineDetails());
