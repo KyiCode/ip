@@ -102,6 +102,13 @@ public class FileOperator {
         Files.move(Paths.get("ip/data/temp.txt"), Paths.get("ip/data/meow.txt"));
     }
 
+
+    /**
+     * To Overwrite current Storage File with new contents in Task list.
+     *
+     * @param filePath of current Storage file.
+     * @throws IOException if file is corrupted or invalid.
+     */
     public static void overWriteLoad(Path filePath) throws IOException {
         FileWriter fw = new FileWriter(String.valueOf(filePath));
         fw.close();

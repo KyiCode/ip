@@ -99,4 +99,55 @@ public class StringHelper {
         return isValidFromFormat && isValidToFormat;
     }
 
+
+    /**
+     * Used by Storage, to check loaded Tasks' completion status.
+     *
+     * @param text String line representation of task in storage file.
+     * @return true if loaded task is completed.
+     */
+    public boolean checkLoadedTaskStatus() {
+        boolean isCompletedToDo = string.startsWith("[t][x]");
+        boolean isCompletedDeadline = string.startsWith("[d][x]");
+        boolean isCompletedEvent = string.startsWith("[e][x]");
+        return isCompletedToDo || isCompletedDeadline || isCompletedEvent;
+    }
+
+
+    /**
+     * Filter String to get the Task Description.
+     *
+     * @return String representation of task.
+     */
+    public String getLoadedTaskDetails() {
+        return string.split("] ")[1];
+    }
+
+    /**
+     * Checks if Loaded Task String is a ToDo task.
+     *
+     * @return true if ToDo Task.
+     */
+    public boolean isLoadedTodo() {
+        return string.startsWith("[t]");
+    }
+
+    /**
+     * Checks if Loaded Task String is a DeadLine task.
+     *
+     * @return true if DeadLine Task.
+     */
+    public boolean isLoadedDeadline() {
+        return string.startsWith("[d]");
+    }
+
+    /**
+     * Checks if Loaded Task String is an Event task.
+     *
+     * @return true if Event Task.
+     */
+    public boolean isLoadedEvent() {
+        return string.startsWith("[e]");
+    }
+
 }
