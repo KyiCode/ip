@@ -1,5 +1,9 @@
 package meow;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 import exceptions.InvalidCommandException;
 import exceptions.InvalidCommandFormatException;
 import exceptions.InvalidMarkingException;
@@ -12,23 +16,16 @@ import task.Task;
 import task.TaskList;
 import task.ToDo;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * Parser Class acts as a processing unit for user input commands, delegating them to respective handlers.
  */
 public class Parser {
-    String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
-    String outro = "Bye. Hope to see you again soon!\n";
-    String byeCommand = "bye";
-    String listCommand = "list";
-    String output;
-
-//    Temporary
-    Path filePath;
+    private String intro = "Hello! I'm Meow\n" + "What can I do for you?\n";
+    private String outro = "Bye. Hope to see you again soon!\n";
+    private String byeCommand = "bye";
+    private String listCommand = "list";
+    private String output;
+    private Path filePath;
 
     /**
      * Constructs a Parser instance, and Prints the Introduction text of MrMeow.
@@ -71,7 +68,13 @@ public class Parser {
         return output + duplicateTaskResult;
     }
 
-    public String checkDupe() throws IOException {
+
+    /**
+     * Method to check for duplicate Tasks.
+     *
+     * @return String depending on result of method, for output.
+     */
+    public String checkDupe() {
         ArrayList<Task> duplicateTasks = TaskList.getDupes();
         if (!duplicateTasks.isEmpty()) {
             return "\nDuplicate Tasks present, removeDupe to execute removal";
@@ -80,9 +83,17 @@ public class Parser {
     }
 
 
-
-
-    public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException, IOException {
+    /**
+     * Handler to process Single word commands.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws InvalidCommandFormatException if user input string is invalid.
+     * @throws IOException if invalid input.
+     */
+    public boolean executeSingleInput(String command, StringHelper stringHelper)
+            throws InvalidCommandFormatException, IOException {
         if (command.equals(byeCommand)) {
             output = outro;
             return true;
@@ -113,39 +124,57 @@ public class Parser {
         return false;
     }
 
-
-    public boolean executeIndexCommand(String command, StringHelper stringHelper) throws InvalidMarkingException, IOException {
+    /**
+     * Handler to process commands requiring indexing of Task in Task List.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws InvalidMarkingException if user input string is to mark an invalid task index.
+     * @throws IOException if invalid input.
+     */
+    public boolean executeIndexCommand(String command, StringHelper stringHelper)
+            throws InvalidMarkingException, IOException {
         Task task;
         switch (command) {
-            case "mark":
-                task = TaskList.markDone(stringHelper.getIndex());
-                FileOperator.markOperation(filePath, task);
-                output = "Done: " + task.toString();
-                return true;
-            case "unmark":
-                task = TaskList.markUndone(stringHelper.getIndex());
-                FileOperator.markOperation(filePath, task);
-                output = "Unmarked: " + task.toString();
-                return true;
-            case "delete":
-                task = TaskList.delete(stringHelper.getIndex());
-                FileOperator.delOperation(stringHelper.getIndex());
-                output = "Removed: " + task.toString();
-                return true;
-            case "find":
-                output = TaskList.find(stringHelper.getTaskDetails());
-                return true;
+        case "mark":
+            task = TaskList.markDone(stringHelper.getIndex());
+            FileOperator.markOperation(filePath, task);
+            output = "Done: " + task.toString();
+            return true;
+        case "unmark":
+            task = TaskList.markUndone(stringHelper.getIndex());
+            FileOperator.markOperation(filePath, task);
+            output = "Unmarked: " + task.toString();
+            return true;
+        case "delete":
+            task = TaskList.delete(stringHelper.getIndex());
+            FileOperator.delOperation(stringHelper.getIndex());
+            output = "Removed: " + task.toString();
+            return true;
+        case "find":
+            output = TaskList.find(stringHelper.getTaskDetails());
+            return true;
+        default:
+            return false;
         }
-        return false;
     }
 
 
+    /**
+     * Handler to process user Input requiring the creation of new Tasks.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws IOException if invalid input.
+     */
     public boolean createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
         Task task = switch (command) {
-            case "todo" -> new ToDo(stringHelper.getTaskDetails());
-            case "deadline" -> new DeadLine(stringHelper.getDeadLineDetails());
-            case "event" -> new Event(stringHelper.getEventDetails());
-            default -> throw new InvalidCommandException();
+        case "todo" -> new ToDo(stringHelper.getTaskDetails());
+        case "deadline" -> new DeadLine(stringHelper.getDeadLineDetails());
+        case "event" -> new Event(stringHelper.getEventDetails());
+        default -> throw new InvalidCommandException();
         };
 
         TaskList.add(task);

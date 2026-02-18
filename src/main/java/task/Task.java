@@ -1,8 +1,8 @@
 package task;
 
-import exceptions.NullTaskDescriptionException;
-
 import java.io.IOException;
+
+import exceptions.NullTaskDescriptionException;
 
 /**
  * Parent class of all task classes.

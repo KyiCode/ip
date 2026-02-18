@@ -1,10 +1,10 @@
 package task;
 
-import exceptions.InvalidMarkingException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import exceptions.InvalidMarkingException;
 
 /**
  * TaskList class to represent a list of tasks.
@@ -24,8 +24,6 @@ public class TaskList {
     public static ArrayList<Task> getListCopy() {
         return new ArrayList<>(list);
     }
-
-
 
     /**
      * Mark the task at given index as done.
@@ -168,6 +166,11 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Method to remove duplicate Tasks in Task List.
+     *
+     * @param dupeTasks ArrayList of Duplicated Tasks.
+     */
     public static void removeDupes(ArrayList<Task> dupeTasks) {
         for (Task x : dupeTasks) {
             list.remove(x);

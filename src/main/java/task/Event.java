@@ -1,17 +1,17 @@
 package task;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidEventFormatException;
-
 import java.io.IOException;
 import java.time.LocalDate;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidEventFormatException;
 
 /**
  * Event Class to represent a Task with a start and end duration.
  */
 public class Event extends Task {
-    LocalDate from;
-    LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * Construct an Event instance.

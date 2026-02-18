@@ -1,17 +1,17 @@
 package task;
 
+import java.io.IOException;
+import java.time.LocalDate;
+
 import exceptions.InvalidCommandException;
 import exceptions.InvalidDeadLineFormatException;
 import exceptions.NullDateException;
-
-import java.io.IOException;
-import java.time.LocalDate;
 
 /**
  * DeadLine Class to represent Tasks with a Deadline.
  */
 public class DeadLine extends Task {
-    LocalDate deadLine;
+    private LocalDate deadLine;
 
     /**
      * Construct a DeadLine instance.

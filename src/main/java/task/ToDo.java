@@ -1,8 +1,8 @@
 package task;
 
-import exceptions.InvalidCommandException;
-
 import java.io.IOException;
+
+import exceptions.InvalidCommandException;
 
 /**
  * Represents a ToDo task.
