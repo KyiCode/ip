@@ -71,7 +71,13 @@ public class Parser {
         return output + duplicateTaskResult;
     }
 
-    public String checkDupe() throws IOException {
+
+    /**
+     * Method to check for duplicate Tasks.
+     *
+     * @return String depending on result of method, for output.
+     */
+    public String checkDupe() {
         ArrayList<Task> duplicateTasks = TaskList.getDupes();
         if (!duplicateTasks.isEmpty()) {
             return "\nDuplicate Tasks present, removeDupe to execute removal";
@@ -80,8 +86,15 @@ public class Parser {
     }
 
 
-
-
+    /**
+     * Handler to process Single word commands.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws InvalidCommandFormatException if user input string is invalid.
+     * @throws IOException if invalid input.
+     */
     public boolean executeSingleInput(String command, StringHelper stringHelper) throws InvalidCommandFormatException, IOException {
         if (command.equals(byeCommand)) {
             output = outro;
@@ -113,7 +126,15 @@ public class Parser {
         return false;
     }
 
-
+    /**
+     * Handler to process commands requiring indexing of Task in Task List.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws InvalidMarkingException if user input string is to mark an invalid task index.
+     * @throws IOException if invalid input.
+     */
     public boolean executeIndexCommand(String command, StringHelper stringHelper) throws InvalidMarkingException, IOException {
         Task task;
         switch (command) {
@@ -140,6 +161,14 @@ public class Parser {
     }
 
 
+    /**
+     * Handler to process user Input requiring the creation of new Tasks.
+     *
+     * @param command String command.
+     * @param stringHelper instance of respective user command input.
+     * @return true if method had executed a single word command.
+     * @throws IOException if invalid input.
+     */
     public boolean createEvent(String command, StringHelper stringHelper) throws IOException, InvalidCommandException {
         Task task = switch (command) {
             case "todo" -> new ToDo(stringHelper.getTaskDetails());
