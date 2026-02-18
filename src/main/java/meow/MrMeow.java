@@ -1,22 +1,21 @@
 package meow;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidMarkingException;
-import fileoperator.Storage;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidMarkingException;
+import fileoperator.Storage;
 
 /**
  * Main MrMeow class
  */
 public class MrMeow {
-    Parser parser;
-    Path dataDir;
-    Path filePath;
+    private Parser parser;
+    private Path dataDir;
+    private Path filePath;
 
     public MrMeow() {
         dataDir = Paths.get("ip/data");

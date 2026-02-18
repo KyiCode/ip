@@ -1,8 +1,5 @@
 package fileoperator;
 
-import task.Task;
-import task.TaskList;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import task.Task;
+import task.TaskList;
 
 /**
  * Class FileOperator to perform changes to current storage file.

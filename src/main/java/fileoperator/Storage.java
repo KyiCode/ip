@@ -1,5 +1,10 @@
 package fileoperator;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 import exceptions.InvalidCommandException;
 import exceptions.InvalidEventFormatException;
 import exceptions.NullDateException;
@@ -8,13 +13,8 @@ import meow.Parser;
 import task.DeadLine;
 import task.Event;
 import task.Task;
-import task.ToDo;
 import task.TaskList;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Scanner;
+import task.ToDo;
 
 /**
  * Storage class to perform tasks on Storage file.
@@ -104,7 +104,7 @@ public class Storage {
      * @throws InvalidCommandException if string representation of task is invalid.
      * @throws IOException if event is invalid.
      */
-    public static Task loadEvent (String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
+    public static Task loadEvent(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
         String[] eventDetails = taskDetails.split(" \\|\\| From: ");
         if (eventDetails.length != 2) {
             throw new InvalidEventFormatException();
