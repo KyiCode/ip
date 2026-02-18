@@ -103,7 +103,6 @@ public class StringHelper {
     /**
      * Used by Storage, to check loaded Tasks' completion status.
      *
-     * @param text String line representation of task in storage file.
      * @return true if loaded task is completed.
      */
     public boolean checkLoadedTaskStatus() {
