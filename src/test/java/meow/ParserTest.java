@@ -1,14 +1,14 @@
 package meow;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import exceptions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import task.TaskList;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +17,7 @@ public class ParserTest {
     private Path tempFile;
 
     @BeforeEach
-    void setUp() throws IOException, IOException {
+    void setUp() throws IOException {
         TaskList.reset();
         tempFile = Files.createTempFile("meow-test", ".txt");
         parser = new Parser(tempFile);
@@ -36,7 +36,7 @@ public class ParserTest {
     }
 
     @Test
-    void markTest_Task_success() throws Exception {
+    void markTest_task_success() throws Exception {
         parser.thinking("todo test1");
         parser.thinking("todo test2");
         String result = parser.thinking("mark 1");
@@ -97,8 +97,7 @@ public class ParserTest {
     @Test
     void thinking_markInvalidIndex_throwsException() {
         assertThrows(
-                InvalidMarkingException.class,
-                () -> parser.thinking("mark 1")
+                InvalidMarkingException.class, () -> parser.thinking("mark 1")
         );
     }
 }

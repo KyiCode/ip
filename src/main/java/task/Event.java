@@ -27,8 +27,8 @@ public class Event extends Task {
         }
 
         try {
-            this.from = LocalDate.parse(eventDetails[1].split(" /to ")[0]);
-            this.to = LocalDate.parse(eventDetails[1].split(" /to ")[1]);
+            this.from = LocalDate.parse(eventDetails[1].split(" /to ")[0].trim());
+            this.to = LocalDate.parse(eventDetails[1].split(" /to ")[1].trim());
         } catch (Exception e) {
             throw new InvalidEventFormatException();
         }

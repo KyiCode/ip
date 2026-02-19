@@ -1,5 +1,9 @@
 package task;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import exceptions.InvalidCommandFormatException;
 import exceptions.InvalidDeadLineFormatException;
 import exceptions.NullDateException;
@@ -7,10 +11,6 @@ import meow.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,46 +33,42 @@ public class DeadLineTest {
 
     @Test
     void deadLine_noDescription_exceptionThrown() throws Exception {
-        assertThrows(InvalidCommandFormatException.class,
-                () -> parser.thinking("deadline  "));
+        assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("deadline  "));
     }
 
 
     //technically not null date?
     @Test
     void deadLine_noDescriptionTwo_exceptionThrown() throws Exception {
-        assertThrows(NullDateException.class,
-                () -> parser.thinking("deadline /by 2024.12.12  "));
+        assertThrows(NullDateException.class, () -> parser.thinking("deadline /by 2024.12.12  "));
     }
 
     @Test
     void deadLine_noDeadLineCommand_exceptionThrown() throws Exception {
-        assertThrows(NullDateException.class,
-                () -> parser.thinking("deadline test  "));
+        assertThrows(NullDateException.class, () -> parser.thinking("deadline test  "));
     }
 
     @Test
     void deadLine_noDeadLineOne_exceptionThrown() throws Exception {
-        assertThrows(NullDateException.class,
-                () -> parser.thinking("deadline test /by"));
+        assertThrows(NullDateException.class, () -> parser.thinking("deadline test /by"));
     }
 
     @Test
     void deadLine_noDeadLineTwo_exceptionThrown() throws Exception {
-        assertThrows(NullDateException.class,
-                () -> parser.thinking("deadline test /by "));
+        assertThrows(NullDateException.class, () -> parser.thinking("deadline test /by "));
     }
 
     @Test
     void deadLine_inValidDeadLineTwo_exceptionThrown() throws Exception {
-        assertThrows(InvalidDeadLineFormatException.class,
-                () -> parser.thinking("deadline test /by 2024-13-12  "));
+        assertThrows(InvalidDeadLineFormatException.class, () -> parser.thinking("deadline test /by 2024-13-12  "));
     }
 
     @Test
-    void deadLine_test_noTrailingSpace() throws Exception {
-        assertThrows(InvalidDeadLineFormatException.class,
-                () -> parser.thinking("deadline test /by 2026-12-12  "));
+    void thinking_adddeadline_success2() throws Exception {
+        String result = parser.thinking("deadline test /by 2026-12-03 ");
+        System.out.println(result);
+        assertTrue(result.contains("[D][ ] test"));
+        assertTrue(result.contains("2026-12-03"));
     }
 
     @Test

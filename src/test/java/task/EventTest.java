@@ -1,16 +1,15 @@
 package task;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import exceptions.InvalidCommandFormatException;
 import exceptions.InvalidEventFormatException;
-import exceptions.NullDateException;
 import meow.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,20 +56,23 @@ public class EventTest {
     }
 
     @Test
-    void event_trailingSpaces_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20   "));
+    void event_trailingSpaces_exceptionThrown() {
+        assertThrows(InvalidEventFormatException.class,
+                () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20   "));
     }
 
     //throws wrong exception
     @Test
     void event_inValidDate_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20"));
+        assertThrows(InvalidEventFormatException.class,
+                () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20"));
     }
 
     //should throw an exception
     @Test
     void event_fromDateLaterThanToDate_exceptionThrown() throws Exception {
-        assertThrows(InvalidEventFormatException.class, () -> parser.thinking("event w /from 2024-12-12 /to 2024-10-20"));
+        assertThrows(InvalidEventFormatException.class,
+                () -> parser.thinking("event w /from 2024-12-12 /to 2024-10-20"));
     }
 
     @Test
