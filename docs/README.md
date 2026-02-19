@@ -1,6 +1,6 @@
 # MrMeow User Guide
 
-![img.png](img.png)
+![img.png](Ui.png)
 
 MrMeow, a chat bot that helps keep track of your day to day tasks!
 
@@ -44,7 +44,7 @@ XX Tasks in list.
 
 Command Format: list
 
-
+cd java -versio
 ## Mark Done or Not Done
 
 Command Format: mark <index_of_task>
