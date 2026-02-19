@@ -35,6 +35,12 @@ public class MrMeow {
         }
     }
 
+    /**
+     * Retrieve the output of the program.
+     *
+     * @param input String input of user.
+     * @return String output of Program.
+     */
     public String getResponse(String input) {
         String output = null;
         try {

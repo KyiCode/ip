@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import exceptions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import task.TaskList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import exceptions.InvalidMarkingException;
 
 public class ParserTest {
     private Parser parser;
