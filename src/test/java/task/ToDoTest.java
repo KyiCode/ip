@@ -1,14 +1,14 @@
 package task;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import exceptions.InvalidCommandFormatException;
 import meow.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +29,7 @@ public class ToDoTest {
     }
 
     @Test
-    void thinking_addTodo_no_description() throws Exception {
+    void thinking_addTodo_noDescription() throws Exception {
         assertThrows(InvalidCommandFormatException.class, () -> parser.thinking("todo  "));
     }
 
