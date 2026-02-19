@@ -107,7 +107,7 @@ public class TaskList {
                     isFound = true;
                     continue;
                 }
-                output.append(String.valueOf(count)).append(task.toString()).append("\n");
+                output.append(String.valueOf(count)).append(". ").append(task.toString()).append("\n");
             }
         }
         return output.toString();
@@ -171,10 +171,16 @@ public class TaskList {
      *
      * @param dupeTasks ArrayList of Duplicated Tasks.
      */
-    public static void removeDupes(ArrayList<Task> dupeTasks) {
+    public static boolean removeDupes(ArrayList<Task> dupeTasks) {
+        if (dupeTasks.isEmpty()) {
+            return false;
+        }
+
         for (Task x : dupeTasks) {
             list.remove(x);
         }
+
+        return true;
     }
 
     public static String getConflict() {

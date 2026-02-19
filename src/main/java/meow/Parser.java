@@ -111,9 +111,12 @@ public class Parser {
 
         if (command.equals("removedupe")) {
             ArrayList<Task> duplicateTasks = TaskList.getDupes();
-            TaskList.removeDupes(duplicateTasks);
+            boolean hasDupe = TaskList.removeDupes(duplicateTasks);
             FileOperator.overWriteLoad(filePath);
             output = "Removed!";
+            if (!hasDupe) {
+                output = "No Duplicate Found!";
+            }
             return true;
         }
 
