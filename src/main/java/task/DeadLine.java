@@ -27,7 +27,7 @@ public class DeadLine extends Task {
         }
 
         try {
-            this.deadLine = LocalDate.parse(taskDetails[1]);
+            this.deadLine = LocalDate.parse(taskDetails[1].trim());
         } catch (Exception e) {
             throw new InvalidDeadLineFormatException();
         }

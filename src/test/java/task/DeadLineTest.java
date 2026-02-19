@@ -64,8 +64,11 @@ public class DeadLineTest {
     }
 
     @Test
-    void deadLine_test_noTrailingSpace() throws Exception {
-        assertThrows(InvalidDeadLineFormatException.class, () -> parser.thinking("deadline test /by 2026-12-12  "));
+    void thinking_adddeadline_success2() throws Exception {
+        String result = parser.thinking("deadline test /by 2026-12-03 ");
+        System.out.println(result);
+        assertTrue(result.contains("[D][ ] test"));
+        assertTrue(result.contains("2026-12-03"));
     }
 
     @Test

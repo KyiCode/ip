@@ -56,7 +56,7 @@ public class EventTest {
     }
 
     @Test
-    void event_trailingSpaces_exceptionThrown() throws Exception {
+    void event_trailingSpaces_exceptionThrown() {
         assertThrows(InvalidEventFormatException.class,
                 () -> parser.thinking("event w /from 2024-13-12 /to 2024-10-20   "));
     }
