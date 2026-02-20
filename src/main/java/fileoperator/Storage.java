@@ -88,7 +88,7 @@ public class Storage {
      * @throws IOException if deadline is invalid.
      */
     public static Task loadDeadLine(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
-        String[] deadLineDetails = taskDetails.split(" \\|\\| Deadline: ");
+        String[] deadLineDetails = taskDetails.split(" \\|\\| deadline: ");
         if (deadLineDetails.length != 2) {
             throw new NullDateException();
         }
@@ -105,12 +105,12 @@ public class Storage {
      * @throws IOException if event is invalid.
      */
     public static Task loadEvent(String taskDetails, boolean isDone) throws InvalidCommandException, IOException {
-        String[] eventDetails = taskDetails.split(" \\|\\| From: ");
+        String[] eventDetails = taskDetails.split(" \\|\\| from: ");
         if (eventDetails.length != 2) {
             throw new InvalidEventFormatException();
         }
 
-        String[] eventDateTimeDetails = eventDetails[1].split(" To: ");
+        String[] eventDateTimeDetails = eventDetails[1].split(" to: ");
         if (eventDateTimeDetails.length != 2) {
             throw new InvalidEventFormatException();
         }
