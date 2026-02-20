@@ -103,12 +103,13 @@ public class TaskList {
             String taskDetail = task.getTaskName();
             if (taskDetail.contains(keyword)) {
                 if (!isFound) {
-                    output = new StringBuilder(String.valueOf(count) + task.toString() + "\n");
+                    output = new StringBuilder(String.valueOf(count) + ". " + task.toString() + "\n");
                     isFound = true;
                     continue;
                 }
                 output.append(String.valueOf(count)).append(". ").append(task.toString()).append("\n");
             }
+            count+= 1;
         }
         return output.toString();
     }
